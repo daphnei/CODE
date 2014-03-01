@@ -300,8 +300,8 @@ Caffeine FLOAT
 
 CREATE TABLE questions (
   id MEDIUMINT NOT NULL AUTO_INCREMENT,
-  correct_answers INT DEFAULT '0',
-  wrong_answers INT DEFAULT '0',
+  average_score FLOAT DEFAULT '0',
+  num_answers FLOAT DEFAULT '0',
   PRIMARY KEY (id)
 );
 

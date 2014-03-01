@@ -12,18 +12,25 @@ withConnection = (fn) ->
   fn()
   connection.end()
 
-resolveQueryAsPromise = (promiseObj, err, rows, fields) ->
-  if err then promiseObj.reject err else promiseObj.resolve rows
+resolvePromiseToQuery = (promise, query, queryArgs=[]) ->
+  connection.query query, queryArgs, (err, rows, fields) ->
+    if err then promise.reject err else promise.resolve rows
 
-getQuestionsFromTable = (name, limit) ->
+connectAndQuery = (query, queryArgs=[]) ->
   data = Q.defer()
 
   withConnection ->
-    queryString = 'SELECT * FROM ?? LIMIT ?'
-    connection.query queryString, [name, limit], (err, rows, fields) ->
-      resolveQueryAsPromise data, err, rows, fields
+    resolvePromiseToQuery data, query, queryArgs
 
   data.promise
+
+exports.getMostDifficultQuestions = (limit) ->
+  queryString = 'SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?'
+  connectAndQuery queryString, [limit]
+
+getQuestionsFromTable = (name, limit) ->
+  queryString = 'SELECT * FROM ?? LIMIT ?'
+  connectAndQuery queryString, [name, limit]
 
 exports.getQuestions = (type, limit) ->
   getQuestionsFromTable(type + '_questions', limit)

@@ -14,7 +14,16 @@
     if (limit == null) {
       limit = 10;
     }
+    limit = parseInt(limit);
     return db.getQuestions(type, limit).then(function(data) {
+      return res.json(data);
+    });
+  });
+
+  app.get('/questions/difficult', function(req, res) {
+    var limit;
+    limit = req.query.limit != null ? parseInt(req.query.limit) : 10;
+    return db.getMostDifficultQuestions(limit).then(function(data) {
       return res.json(data);
     });
   });
