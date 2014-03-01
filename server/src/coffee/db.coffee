@@ -13,7 +13,7 @@ connectAndQuery = (query, queryArgs=[]) ->
   connection.query query, queryArgs, (err, rows, fields) ->
     if err then data.reject err else data.resolve rows
 
-  data.promise
+  return data.promise
 
 exports.getMostDifficultQuestions = (limit) ->
   queryString = "SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?"
