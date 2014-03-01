@@ -4,6 +4,7 @@ DROP TABLE IF EXISTS units;
 DROP TABLE IF EXISTS fast_foods;
 DROP TABLE IF EXISTS baked_goods;
 DROP TABLE IF EXISTS egg_dishes;
+DROP TABLE IF EXISTS sweets_sugars;
 
 CREATE TABLE units (
 Name VARCHAR(20),
@@ -266,6 +267,33 @@ Lycopene FLOAT,
 Folate FLOAT,
 Vitamin_C FLOAT,
 Vitamin_B12 FLOAT
+);
+
+CREATE TABLE sweets_sugars (
+Food_name FLOAT,
+Measure FLOAT,
+Unit VARCHAR(100),
+Genre VARCHAR(100),
+Weight FLOAT,
+Energy FLOAT,
+Energy FLOAT,
+Protein FLOAT,
+Carbohydrate FLOAT,
+Total_Sugar FLOAT,
+Total_Dietary_Fibre FLOAT,
+Total_Fat FLOAT,
+Saturated_Fat FLOAT,
+Cholesterol FLOAT,
+Calcium FLOAT,
+Iron FLOAT,
+Sodium FLOAT,
+Potassium FLOAT,
+Magnesium FLOAT,
+Phosphorus FLOAT,
+Vitamin_A FLOAT,
+Vitamin_C FLOAT,
+Vitamin_B12 FLOAT,
+Caffeine FLOAT
 );
 
 load data local infile 'fast_foods_cleaned.csv' into table fast_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
