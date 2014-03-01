@@ -14,8 +14,8 @@ public class QuizController : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		var questions = RequestServer.GetQuestion();
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
-
 
 		foreach (String s in questionList) {
 
