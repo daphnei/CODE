@@ -33,8 +33,7 @@
   app.get('/questions/generate', function(req, res) {
     var type;
     type = req.query.type;
-    gen.generateQuestion(res, type, void 0);
-    return res.send(200);
+    return gen.generateQuestion(res, type, void 0);
   });
 
   app.listen(3000);
