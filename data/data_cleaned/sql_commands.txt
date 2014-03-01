@@ -13,6 +13,8 @@ DROP TABLE IF EXISTS sweets_candies;
 DROP TABLE IF EXISTS fats_and_oils;
 DROP TABLE IF EXISTS sweets_sugars;
 
+DROP TABLE IF EXISTS all_foods;
+
 DROP TABLE IF EXISTS composition_questions;
 DROP TABLE IF EXISTS questions;
 
@@ -120,7 +122,9 @@ Phosphorus FLOAT,
 Thiamin FLOAT,
 Riboflavin FLOAT,
 Niacin FLOAT,
-Folate FLOAT);
+Folate FLOAT,
+Vitamin_A FLOAT
+);
 
 CREATE TABLE egg_dishes (
 Name VARCHAR(100),
@@ -230,7 +234,8 @@ Vitamin_D FLOAT,
 Vitamin_B12 FLOAT,
 Folate FLOAT,
 Vitamin_E FLOAT,
-Total_Sugar FLOAT
+Total_Sugar FLOAT,
+Calcium FLOAT
 );
 
 CREATE TABLE snacks (
@@ -283,7 +288,8 @@ Beta_carotene FLOAT,
 Lycopene FLOAT,
 Folate FLOAT,
 Vitamin_C FLOAT,
-Vitamin_B12 FLOAT
+Vitamin_B12 FLOAT,
+Cholesterol FLOAT
 );
 
 CREATE TABLE sweets_candies (
@@ -381,3 +387,41 @@ load data local infile 'fats_and_oils_cleaned.csv' into table fats_and_oils fiel
 load data local infile 'fast_foods_cleaned.csv' into table fast_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'baked_goods_cleaned.csv' into table baked_goods fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'egg_dishes_cleaned.csv' into table egg_dishes fields terminated by ',' enclosed by '"' lines terminated by '\n';
+
+CREATE TABLE all_foods (
+	Name VARCHAR(100),
+	Genre VARCHAR(100),
+	Measure FLOAT,
+	Unit VARCHAR(100),
+	Energy FLOAT,
+	Energy2 FLOAT,
+	Protein FLOAT,
+	Carbohydrate FLOAT,
+	Total_Sugar FLOAT,
+	Cholesterol FLOAT,
+	Vitamin_A FLOAT,
+	Calcium FLOAT,
+	PRIMARY KEY (id),
+	id MEDIUMINT NOT NULL AUTO_INCREMENT
+	) 
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from meats_poultry
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from miscellaneous_foods
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from snacks
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from vegetables
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from mixed_dishes
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from sweets_candies
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from fats_and_oils
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from fast_foods
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from baked_goods
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from egg_dishes
+;
+
