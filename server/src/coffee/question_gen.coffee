@@ -4,8 +4,8 @@ db = require './db'
 a_per_b_question = "composition"
 comparision_question = "compare"
 
-fields = ["Energy", "Protein", "Carbohydrate", "Total_Sugar"]
-units =  ["kcal",   "g",       "g",            "g"]
+fields = ["Energy", "Protein", "Carbohydrate", "Total_Sugar", "Cholesterol", "Vitamin_A", "Calcium"]
+units =  ["kcal",   "g",       "g",            "g",           "mg",          "RAE",        "mg"]
 make_food = (name, genre, value, measure, unit) ->
   return {
     name:name,

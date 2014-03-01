@@ -10,9 +10,9 @@
 
   comparision_question = "compare";
 
-  fields = ["Energy", "Protein", "Carbohydrate", "Total_Sugar"];
+  fields = ["Energy", "Protein", "Carbohydrate", "Total_Sugar", "Cholesterol", "Vitamin_A", "Calcium"];
 
-  units = ["kcal", "g", "g", "g"];
+  units = ["kcal", "g", "g", "g", "mg", "RAE", "mg"];
 
   make_food = function(name, genre, value, measure, unit) {
     return {
