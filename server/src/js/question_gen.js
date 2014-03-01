@@ -45,12 +45,26 @@
         };
         console.log(data_to_send);
         response.status(200);
-        response.send(data_to_send);
-        return console.log(data_to_send);
+        return response.send(data_to_send);
       });
     } else if (type === comparision_question) {
-      console.log("not yet impl");
-      return response.send(200);
+      rand_index = parseInt(Math.random() * fields.length);
+      chosen_field = fields[rand_index];
+      unit_for_chosen = units[rand_index];
+      queryString = "SELECT t1.Name as Name1, t1.Genre as Genre1, t1.Unit as Unit1, t1.Measure as Measure1, t1." + chosen_field + " as Value1, t2.Name as Name2, t2.Genre as Genre2, t1.Unit as Unit2, t2.Measure as Measure2, t2." + chosen_field + " as Value2 FROM all_foods t1, all_foods t2 WHERE t1." + chosen_field + " > 0 AND t2." + chosen_field + " > 0 AND t1." + chosen_field + " >= 2 * t2." + chosen_field + " AND t1." + chosen_field + " < 5 * t2." + chosen_field + " ORDER BY RAND() LIMIT 1;";
+      return db.connectAndQuery(queryString).then(function(data) {
+        var data_to_send;
+        console.log(data);
+        data_to_send = {
+          question_type: type,
+          parameter: chosen_field,
+          unit: unit_for_chosen,
+          food1: make_food(data[0].Name1, data[0].Genre1, data[0].Value1, data[0].Measure1, data[0].Unit1),
+          food2: make_food(data[0].Name2, data[0].Genre2, data[0].Value2, data[0].Measure2, data[0].Unit2)
+        };
+        response.status(200);
+        return response.send(data_to_send);
+      });
     } else {
       return response.send(200);
     }
