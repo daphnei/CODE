@@ -9,6 +9,7 @@ public class FlyIn : MonoBehaviour {
 	public Vector3 flyPositionOffset = Vector2.one * 5f;
 	public float flyRotationOffset = 20f;
 	public float multiplier = 0.80f;
+	public float delay = 0f;
 
 	float t = 1;
 
@@ -20,13 +21,17 @@ public class FlyIn : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		this.t = t * multiplier;
+
+		if (this.delay > 0f)
+			this.delay -= Time.deltaTime;
+		else 
+			this.t = t * multiplier;
 
 		if (t > float.Epsilon) {
 
-			Color c = this.renderer.material.color;
-			c.a = 0.5f;
-			this.renderer.material.color = c;
+			// Color c = this.renderer.material.color;
+			// c.a = 0.5f;
+			// this.renderer.material.color = c;
 
 			this.transform.localPosition = Vector3.Lerp(startPosition, startPosition + flyPositionOffset, t);
 			this.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotate), Quaternion.Euler(startRotate + new Vector3(0, 0, flyRotationOffset)), t);
@@ -34,6 +39,14 @@ public class FlyIn : MonoBehaviour {
 	}
 
 	void OnMouseDown() {
+		// TriggerIn();
+	}
+
+	public void TriggerIn() {
+		this.t = 1;
+	}
+
+	public void TriggerOut() {
 		this.t = 1;
 	}
 }
