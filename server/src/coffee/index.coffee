@@ -20,7 +20,7 @@ app.get '/questions/difficult', (req, res) ->
   )
 
 app.get '/questions/generate', (req, res) ->
-	type = req.query.type;
-	gen.generateQuestion(res, type, undefined);
+  type = req.query.type
+  gen.generateQuestion(res, type, undefined)
 
 app.listen 3000
