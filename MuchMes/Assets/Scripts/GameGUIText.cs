@@ -5,11 +5,18 @@ using System.Collections;
 public class GameGUIText : MonoBehaviour {
 
 	private TextMesh textMesh;
-	private Action<GameGUIText> onClick;
+
+	public FlyIn flyInAnimation { get; set; }
+	public Action<GameGUIText> onClick;
+
+	public QuizView view;
+	public String name;
+	public int value;
 
 	// Use this for initialization
-	void Start () {
-		this.textMesh = this.GetComponentInChildren<TextMesh>(); 
+	void Awake () {
+		this.textMesh = this.GetComponentInChildren<TextMesh>();
+		this.flyInAnimation = this.GetComponent<FlyIn>();
 	}
 
 	// Update is called once per frame
@@ -20,6 +27,8 @@ public class GameGUIText : MonoBehaviour {
 	void OnMouseDown() {
 		if (onClick != null)
 			onClick(this);
+		if (view != null)
+			view.DetectClick(name, value);
 	}
 
 	public void SetText(string text) {
