@@ -356,6 +356,7 @@ Total_Daietary_Fibre FLOAT
 
 CREATE TABLE questions (
   id MEDIUMINT NOT NULL AUTO_INCREMENT,
+  type VARCHAR(20) NOT NULL,
   average_score FLOAT DEFAULT '0',
   num_answers FLOAT DEFAULT '0',
   PRIMARY KEY (id)
