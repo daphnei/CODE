@@ -3,23 +3,22 @@ using System.Collections;
 using System.Net;
 using System.IO;
 using System.Text;
+using SimpleJSON;
+using System.Collections.Generic;
 
-public class RequestServer : MonoBehaviour {
-	// Use this for initialization
-	void Start() {
-		HttpWebRequest request = (HttpWebRequest)WebRequest.Create ("http://www.timeapi.org/utc/now");
+public static class RequestServer {
+	public static Question GetQuestion() {
+		HttpWebRequest request = (HttpWebRequest)WebRequest.Create ("http://localhost:3000/questions/generate?type=composition");
 		HttpWebResponse response = (HttpWebResponse)request.GetResponse ();
-		Stream receiveStream = response.GetResponseStream();
-		StreamReader reader = new StreamReader(receiveStream, Encoding.UTF8);
+		Stream receiveStream = response.GetResponseStream ();
+		StreamReader reader = new StreamReader (receiveStream);
 
-		Debug.Log("Read response");
-		Debug.Log("Response is: " + reader.ReadToEnd());
+		JSONNode json = JSON.Parse (reader.ReadToEnd ());
+		Question question = Question.FromJSON (json);
 
-		response.Close();
-		reader.Close();
-	}
+		reader.Close ();
+		response.Close ();
 
-	// Update is called once per frame
-	void Update() {
+		return question;
 	}
 }

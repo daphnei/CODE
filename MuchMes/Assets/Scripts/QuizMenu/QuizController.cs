@@ -11,13 +11,18 @@ public class QuizController : MonoBehaviour {
 
 	GameGUIText header;
 	GameObject questions;
+
+	void Awake() {
+		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
+		this.questions = GameObject.Find("Questions");
+	}
 	
 	// Use this for initialization
 	void Start () {
 
-		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
-		this.questions = GameObject.Find("Questions");
+		var questionsServer = RequestServer.GetQuestion();
 
+		foreach (String s in questionList) {
 
 		/*for (int i = 0; i < questionList.Count; i++) {
 			GameGUIText button = Instantiate(buttonPrefab) as GameGUIText;

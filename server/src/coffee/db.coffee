@@ -7,7 +7,7 @@ connection = mysql.createConnection
   password: 'fW2!cZ8%'
   database: 'sql330935'
 
-connectAndQuery = (query, queryArgs=[]) ->
+exports.connectAndQuery = (query, queryArgs=[]) ->
   data = Q.defer()
 
   connection.query query, queryArgs, (err, rows, fields) ->
