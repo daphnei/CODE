@@ -3,9 +3,7 @@ using System.Collections;
 
 [ExecuteInEditMode]
 public class CameraAnchor : MonoBehaviour {
-
-
-
+	
 	// Use this for initialization
 	void Start () {
 
@@ -21,9 +19,7 @@ public class CameraAnchor : MonoBehaviour {
 			Vector3 scale = Vector3.one * ((1f / 10f) * Camera.main.orthographicSize * 2);
 			scale.x *= Camera.main.aspect;
 			backPlane.transform.localScale = scale;
-
 			backPlane.transform.localPosition = 10 * new Vector3(scale.x, -scale.y, 0) / 2f;
-			//Camera.main.orthographicSize
 		}
 	}
 }
