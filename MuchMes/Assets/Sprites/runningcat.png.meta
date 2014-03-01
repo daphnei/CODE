@@ -52,7 +52,7 @@ TextureImporter:
         y: 768
         width: 491
         height: 198
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_1
       rect:
@@ -61,7 +61,7 @@ TextureImporter:
         y: 771
         width: 408
         height: 184
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_2
       rect:
@@ -70,7 +70,7 @@ TextureImporter:
         y: 512
         width: 403
         height: 184
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_3
       rect:
@@ -79,7 +79,7 @@ TextureImporter:
         y: 546
         width: 381
         height: 162
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_4
       rect:
@@ -88,7 +88,7 @@ TextureImporter:
         y: 276
         width: 390
         height: 174
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_5
       rect:
@@ -97,7 +97,7 @@ TextureImporter:
         y: 256
         width: 400
         height: 178
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_6
       rect:
@@ -106,7 +106,7 @@ TextureImporter:
         y: 5
         width: 439
         height: 186
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
     - name: runningcat_7
       rect:
@@ -115,7 +115,7 @@ TextureImporter:
         y: 4
         width: 477
         height: 201
-      alignment: 0
+      alignment: 1
       pivot: {x: 0, y: 0}
   spritePackingTag: 
   userData: 
