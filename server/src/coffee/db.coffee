@@ -22,7 +22,7 @@ connectAndQuery = (query, queryArgs=[]) ->
   withConnection ->
     resolvePromiseToQuery data, query, queryArgs
 
-  data.promise
+  return data.promise
 
 exports.getMostDifficultQuestions = (limit) ->
   queryString = 'SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?'
