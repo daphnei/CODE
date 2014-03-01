@@ -1,5 +1,7 @@
 index = require './index'
 db = require './db'
+Q = require 'Q'
+_ = require 'underscore'
 
 a_per_b_question = "composition"
 comparision_question = "compare"
@@ -15,7 +17,9 @@ make_food = (name, genre, value, measure, unit) ->
     serving_unit:unit,
   }
 
-exports.generateQuestions = (response, type, count, onComplete) ->
+exports.generateQuestions = (type, count) ->
+  deferred = Q.defer()
+
   console.log("Generating question of type: " + type)
   
   queryString = null
@@ -57,13 +61,26 @@ exports.generateQuestions = (response, type, count, onComplete) ->
         }
         data_to_send.push(element)
 
-      onComplete(data_to_send)
+      deferred.resolve(data_to_send)
     )
   else
-    response.send(404)
+    deferred.reject()
 
-exports.generateRandomQuestionSet = (res, count = 10) ->
+  return deferred.promise
+
+exports.generateRandomQuestionSet = (count = 10) ->
+  questions = Q.defer()
+
+  generatedDataPromises = []
   for i in [0 .. count]
-    console.log("fehkhiow")
+    types = [a_per_b_question, comparision_question]
+    type = types[parseInt(Math.random() * types.length)]
+    generatedDataPromises.push(exports.generateQuestions(type, 1))
 
-  
+  Q.all(generatedDataPromises).then (allData) ->
+    flattenData = _.flatten(allData, true)
+    console.log "flattened"
+    console.log flattenData
+    questions.resolve(flattenData)
+
+  return questions.promise

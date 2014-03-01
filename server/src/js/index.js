@@ -30,17 +30,21 @@
     });
   });
 
-  app.get('/questions/generate/ramdom', function(req, res) {
+  app.get('/questions/generate/random', function(req, res) {
     var count;
     count = req.query.count;
-    return gen.generateRandomQuestionSet(res, count);
+    return gen.generateRandomQuestionSet(count).then(function(data) {
+      console.log(data);
+      res.status(200);
+      return res.send(data);
+    });
   });
 
   app.get('/questions/generate', function(req, res) {
     var count, type;
     type = req.query.type;
     count = req.query.count != null ? parseInt(req.query.count) : 1;
-    return gen.generateQuestions(res, type, count, function(data) {
+    return gen.generateQuestions(type, count).then(function(data) {
       res.status(200);
       return res.send(data);
     });
