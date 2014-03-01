@@ -5,6 +5,8 @@ DROP TABLE IF EXISTS fast_foods;
 DROP TABLE IF EXISTS baked_goods;
 DROP TABLE IF EXISTS egg_dishes;
 DROP TABLE IF EXISTS sweets_sugars;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS composition_questions;
 
 CREATE TABLE units (
 Name VARCHAR(20),
@@ -294,6 +296,25 @@ Vitamin_A FLOAT,
 Vitamin_C FLOAT,
 Vitamin_B12 FLOAT,
 Caffeine FLOAT
+);
+
+CREATE TABLE questions (
+  id MEDIUMINT NOT NULL AUTO_INCREMENT,
+  correct_answers INT DEFAULT '0',
+  wrong_answers INT DEFAULT '0',
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE composition_questions (
+  id MEDIUMINT NOT NULL AUTO_INCREMENT,
+  qid MEDIUMINT,
+
+  base_food VARCHAR(100),
+  composed_food VARCHAR(100),
+  amount_of_composed FLOAT,
+
+  PRIMARY KEY (id),
+  FOREIGN KEY (qid) REFERENCES questions(id)
 );
 
 load data local infile 'fast_foods_cleaned.csv' into table fast_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
