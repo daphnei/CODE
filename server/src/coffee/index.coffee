@@ -1,5 +1,6 @@
 express = require 'express'
 db = require './db'
+gen = require './question_gen'
 
 app = express()
 
@@ -17,5 +18,10 @@ app.get '/questions/difficult', (req, res) ->
   db.getMostDifficultQuestions(limit, (data) ->
     res.json data
   )
+
+app.get '/questions/generate', (req, res) ->
+	type = req.query.type;
+	gen.generateQuestion(res, type, undefined);
+	res.send 200
 
 app.listen 3000
