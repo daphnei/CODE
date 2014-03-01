@@ -16,12 +16,11 @@ connectAndQuery = (query, queryArgs=[]) ->
   return data.promise
 
 exports.getMostDifficultQuestions = (limit) ->
-  queryString = 'SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?'
-  connectAndQuery queryString, [limit]
-
-getQuestionsFromTable = (name, limit) ->
-  queryString = 'SELECT * FROM ?? LIMIT ?'
-  connectAndQuery queryString, [name, limit]
+  queryString = "SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?"
+  return connectAndQuery queryString, [limit]
 
 exports.getQuestions = (type, limit) ->
-  getQuestionsFromTable(type + '_questions', limit)
+  tableName = mysql.escapeId(type + '_questions')
+  queryString = "SELECT * FROM questions INNER JOIN #{tableName} ON #{tableName}.qid = questions.id LIMIT ?"
+
+  return connectAndQuery queryString, [limit]
