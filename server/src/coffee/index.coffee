@@ -13,15 +13,23 @@ app.get('/questions', (req, res) ->
     res.json data
 )
 
-app.get '/questions/difficult', (req, res) ->
+app.get '/questions/get/difficult', (req, res) ->
   limit = if req.query.limit? then parseInt(req.query.limit) else 10
   db.getMostDifficultQuestions(limit, (data) ->
     res.json data
   )
 
+app.get '/questions/generate/ramdom', (req, res) ->
+	count = req.query.count
+	gen.generateRandomQuestionSet(res, count);
+
 app.get '/questions/generate', (req, res) ->
   type = req.query.type
-  count = req.query.count
-  gen.generateQuestions(res, type, count)
+  count = if req.query.count? then parseInt(req.query.count) else 1
+
+  gen.generateQuestions(res, type, count, (data) ->
+    res.status(200)
+    res.send(data)
+  )	
 
 app.listen 3000
