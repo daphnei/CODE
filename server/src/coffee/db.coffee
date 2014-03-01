@@ -7,21 +7,31 @@ connection = mysql.createConnection
   password: 'fW2!cZ8%'
   database: 'sql330935'
 
-connectAndQuery = (query, queryArgs=[]) ->
+withConnection = (fn) ->
+  connection.connect()
+  fn()
+  connection.end()
+
+resolvePromiseToQuery = (promise, query, queryArgs=[]) ->
+  connection.query query, queryArgs, (err, rows, fields) ->
+    if err then promise.reject err else promise.resolve rows
+
+exports.connectAndQuery = (query, queryArgs=[]) ->
   data = Q.defer()
 
-  connection.query query, queryArgs, (err, rows, fields) ->
-    if err then data.reject err else data.resolve rows
+  withConnection ->
+    resolvePromiseToQuery data, query, queryArgs
 
   return data.promise
 
 exports.getMostDifficultQuestions = (limit) ->
   queryString = 'SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?'
-  connectAndQuery queryString, [limit]
+  return connectAndQuery queryString, [limit]
 
 getQuestionsFromTable = (name, limit) ->
   queryString = 'SELECT * FROM ?? LIMIT ?'
-  connectAndQuery queryString, [name, limit]
+  connectAndQuery(queryString, [name, limit])
 
 exports.getQuestions = (type, limit) ->
   getQuestionsFromTable(type + '_questions', limit)
+
