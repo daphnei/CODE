@@ -8,10 +8,23 @@
 
   app = express();
 
-  app.get('/', function(req, res) {
-    return db.getFoodData("fast_foods").then(function(data) {
-      console.log(data);
-      return res.send('hello world');
+  app.get('/questions', function(req, res) {
+    var limit, type, _ref;
+    _ref = req.query, type = _ref.type, limit = _ref.limit;
+    if (limit == null) {
+      limit = 10;
+    }
+    limit = parseInt(limit);
+    return db.getQuestions(type, limit).then(function(data) {
+      return res.json(data);
+    });
+  });
+
+  app.get('/questions/difficult', function(req, res) {
+    var limit;
+    limit = req.query.limit != null ? parseInt(req.query.limit) : 10;
+    return db.getMostDifficultQuestions(limit).then(function(data) {
+      return res.json(data);
     });
   });
 

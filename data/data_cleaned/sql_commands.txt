@@ -11,6 +11,10 @@ DROP TABLE IF EXISTS mixed_dishes;
 DROP TABLE IF EXISTS miscellaneous_foods;
 DROP TABLE IF EXISTS sweets_candies;
 DROP TABLE IF EXISTS fats_and_oils;
+DROP TABLE IF EXISTS sweets_sugars;
+
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS composition_questions;
 
 CREATE TABLE units (
 Name VARCHAR(20),
@@ -350,6 +354,24 @@ Alcohol FLOAT,
 Total_Daietary_Fibre FLOAT
 );
 
+CREATE TABLE questions (
+  id MEDIUMINT NOT NULL AUTO_INCREMENT,
+  average_score FLOAT DEFAULT '0',
+  num_answers FLOAT DEFAULT '0',
+  PRIMARY KEY (id)
+);
+
+CREATE TABLE composition_questions (
+  id MEDIUMINT NOT NULL AUTO_INCREMENT,
+  qid MEDIUMINT,
+
+  base_food VARCHAR(100),
+  composed_food VARCHAR(100),
+  amount_of_composed FLOAT,
+
+  PRIMARY KEY (id),
+  FOREIGN KEY (qid) REFERENCES questions(id)
+);
 
 load data local infile 'meat_poultry_cleaned.csv' into table meats_poultry fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'miscellaneous_foods_cleaned.csv' into table miscellaneous_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
