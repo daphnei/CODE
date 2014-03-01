@@ -21,6 +21,7 @@ app.get '/questions/difficult', (req, res) ->
 
 app.get '/questions/generate', (req, res) ->
   type = req.query.type
-  gen.generateQuestion(res, type, undefined)
+  count = req.query.count
+  gen.generateQuestions(res, type, count)
 
 app.listen 3000
