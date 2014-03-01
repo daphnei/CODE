@@ -12,11 +12,25 @@ withConnection = (fn) ->
   fn()
   connection.end()
 
-exports.getFoodData = (tableName) ->
+resolvePromiseToQuery = (promise, query, queryArgs=[]) ->
+  connection.query query, queryArgs, (err, rows, fields) ->
+    if err then promise.reject err else promise.resolve rows
+
+connectAndQuery = (query, queryArgs=[]) ->
   data = Q.defer()
 
   withConnection ->
-    connection.query 'SELECT * FROM ??', [tableName], (err, rows, fields) ->
-      if err then data.reject err else data.resolve rows
+    resolvePromiseToQuery data, query, queryArgs
 
   data.promise
+
+exports.getMostDifficultQuestions = (limit) ->
+  queryString = 'SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?'
+  connectAndQuery queryString, [limit]
+
+getQuestionsFromTable = (name, limit) ->
+  queryString = 'SELECT * FROM ?? LIMIT ?'
+  connectAndQuery queryString, [name, limit]
+
+exports.getQuestions = (type, limit) ->
+  getQuestionsFromTable(type + '_questions', limit)
