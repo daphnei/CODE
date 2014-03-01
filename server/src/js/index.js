@@ -31,9 +31,10 @@
   });
 
   app.get('/questions/generate', function(req, res) {
-    var type;
+    var count, type;
     type = req.query.type;
-    return gen.generateQuestion(res, type, void 0);
+    count = req.query.count;
+    return gen.generateQuestions(res, type, count);
   });
 
   app.listen(3000);
