@@ -1,0 +1,29 @@
+Food name,Measure,-1,-1,Weight ,Energy,Energy,Protein,Carbohydrate,Total Sugar,Total Fat,Saturated Fat,Monounsaturated Fat,Polyunsaturated Fat,Cholesterol,Calcium,Iron,Sodium,Potassium,Magnesium,Phosphorus,Vitamin A,Lycopene,Folate
+-1,-1,-1,-1,g,kcal,kJ,g,g,g,g,g,g,g,mg,mg,mg,mg,mg,mg,mg,RAE,µg,DFE
+"Bacon bits, simulated meat",15,mL,condiments,7,34,141,2,2,0,2,0.3,0.4,1,0,7,0.1,126,10,7,15,0,0,9
+Ketchup,15,mL,condiments,15,15,64,0,4,3,0,0,0,0,0,3,0.1,169,57,3,5,7,2586,2
+Mustard,15,mL,condiments,16,11,44,1,1,0,1,0,0.4,0.2,0,9,0.2,180,22,8,17,1,0,1
+"Olives, pickled, canned or bottled",4,unit,condiments,16,23,97,0,1,0,2,0.3,1.8,0.2,0,8,0.1,249,7,2,1,3,0,0
+"Olives, ripe, canned, jumbo",2,unit,condiments,16,13,54,0,1,0,1,0.1,0.8,0.1,0,15,0.5,144,1,1,0,3,0,0
+"Pickle relish, sweet",15,mL,condiments,15,20,83,0,5,2,0,0,0,0,0,0,0.1,123,4,1,2,1,0,0
+"Pickles, cucumber, dill",1,medium pickle,condiments,65,12,49,0,3,1,0,0,0,0.1,0,6,0.3,833,75,7,14,6,0,1
+"Pickles, cucumber, sweet, slices",4,slices,condiments,28,33,137,0,9,5,0,0,0,0,0,1,0.2,263,9,1,3,3,0,0
+Salsa,15,mL,condiments,17,5,19,0,1,1,0,0,0,0,0,5,0.1,100,50,3,5,3,1758,1
+Cream cheese dip,30,mL,dips,30,108,451,2,1,0,11,5.8,3,1.6,28,23,0.3,176,39,2,28,92,0,4
+Onion dip,30,mL,dips,31,50,211,1,3,0,4,2.5,1.2,0.2,11,34,0.1,206,60,4,31,33,0,3
+Spinach dip,30,mL,dips,30,74,309,1,2,0,7,1.6,1.9,3.3,6,26,0.3,84,57,8,17,75,0,15
+"Gravy, beef, canned",60,mL,gravies and sauces,59,31,131,2,3,0,1,0.7,0.6,0,2,4,0.4,331,48,1,18,1,0,1
+"Gravy, beef, dehydrated, prepared with water",60,mL,gravies and sauces,65,20,85,1,3,0,1,0.2,0.2,0,0,9,0.1,271,15,2,11,0,0,2
+"Gravy, chicken, canned",60,mL,gravies and sauces,60,48,199,1,3,0,3,0.9,1.5,0.9,1,12,0.3,348,66,1,18,1,0,1
+"Gravy, chicken, dehydrated, prepared with water",60,mL,gravies and sauces,66,22,93,1,4,0,1,0.2,0.3,0.1,1,10,0.1,244,24,3,15,2,0,8
+"Gravy, turkey, canned",60,mL,gravies and sauces,61,31,130,2,3,0,1,0.4,0.6,0.3,1,2,0.4,353,67,1,18,0,0,1
+"Gravy, unspecified, dehydrated, prepared with water",60,mL,gravies and sauces,66,22,91,1,4,0,1,0.2,0.2,0.1,0,11,0.1,362,16,3,13,0,0,3
+"Sauce, barbecue",15,mL,gravies and sauces,16,12,50,0,2,4,0,0,0.1,0.1,0,3,0.1,129,28,3,3,0,68,1
+"Sauce, cheese, dehydrated, prepared with 2% milk",60,mL,gravies and sauces,71,81,337,5,7,6,4,2.1,1.3,0.4,11,163,0.1,445,158,12,127,45,0,4
+"Sauce, cranberry, canned, sweetened",60,mL,gravies and sauces,70,106,443,0,27,27,0,0,0,0,0,3,0.2,20,18,2,4,1,0,1
+"Sauce, nacho cheese, ready-to-serve",60,mL,gravies and sauces,64,121,505,5,3,0,10,4.3,3.1,2.1,20,120,0.2,499,20,6,107,66,-1,3
+"Sauce, soy",15,mL,gravies and sauces,18,7,30,0,1,0,0,0,0,0,0,1,0.3,1038,28,1,17,0,0,2
+"Sauce, steak (HPTM, A1TM)",15,mL,gravies and sauces,15,9,39,0,2,-1,0,0,0,0,0,4,0.2,218,60,2,6,7,-1,1
+"Sauce, sweet and sour",15,mL,gravies and sauces,17,20,85,0,4,3,0,0.1,0.1,0.2,0,3,0.1,59,11,1,2,1,-1,0
+"Sauce, teriyaki",15,mL,gravies and sauces,18,15,64,1,3,2,0,0,0,0,0,5,0.3,700,41,11,28,0,0,4
+"Sauce, white, medium, homemade with 2% milk",60,mL,gravies and sauces,61,89,374,2,6,3,6,1.7,2.7,1.7,4,72,0.2,215,95,9,60,55,0,6
