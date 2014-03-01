@@ -15,7 +15,7 @@ make_food = (name, genre, value, measure, unit) ->
     serving_unit:unit,
   }
 
-exports.generateQuestions = (response, type, count = 1) ->
+exports.generateQuestions = (response, type, count, onComplete) ->
   console.log("Generating question of type: " + type)
   
   queryString = null
@@ -48,7 +48,6 @@ exports.generateQuestions = (response, type, count = 1) ->
       console.log(data)
       data_to_send = []
       for question in data
-        console.log("H EHE E E EHR E R EE")
         element = {
           question_type:type,
           parameter:chosen_field,
@@ -58,10 +57,13 @@ exports.generateQuestions = (response, type, count = 1) ->
         }
         data_to_send.push(element)
 
-      console.log("Pllleeeeez get here: " + data_to_send)
-      response.status(200)
-      response.send(data_to_send)
+      onComplete(data_to_send)
     )
   else
     response.send(404)
+
+exports.generateRandomQuestionSet = (res, count = 10) ->
+  for i in [0 .. count]
+    console.log("fehkhiow")
+
   

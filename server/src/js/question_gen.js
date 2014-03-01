@@ -24,11 +24,8 @@
     };
   };
 
-  exports.generateQuestions = function(response, type, count) {
+  exports.generateQuestions = function(response, type, count, onComplete) {
     var chosen_field, queryString, rand_index, unit_for_chosen;
-    if (count == null) {
-      count = 1;
-    }
     console.log("Generating question of type: " + type);
     queryString = null;
     if (type === a_per_b_question) {
@@ -50,7 +47,6 @@
         data_to_send = [];
         for (_i = 0, _len = data.length; _i < _len; _i++) {
           question = data[_i];
-          console.log("H EHE E E EHR E R EE");
           element = {
             question_type: type,
             parameter: chosen_field,
@@ -60,13 +56,23 @@
           };
           data_to_send.push(element);
         }
-        console.log("Pllleeeeez get here: " + data_to_send);
-        response.status(200);
-        return response.send(data_to_send);
+        return onComplete(data_to_send);
       });
     } else {
       return response.send(404);
     }
+  };
+
+  exports.generateRandomQuestionSet = function(res, count) {
+    var i, _i, _results;
+    if (count == null) {
+      count = 10;
+    }
+    _results = [];
+    for (i = _i = 0; 0 <= count ? _i <= count : _i >= count; i = 0 <= count ? ++_i : --_i) {
+      _results.push(console.log("fehkhiow"));
+    }
+    return _results;
   };
 
 }).call(this);
