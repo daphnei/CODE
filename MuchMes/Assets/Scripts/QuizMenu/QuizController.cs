@@ -24,13 +24,14 @@ public class QuizController : MonoBehaviour {
 
 		foreach (String s in questionList) {
 
-		/*for (int i = 0; i < questionList.Count; i++) {
+			/*for (int i = 0; i < questionList.Count; i++) {
 			GameGUIText button = Instantiate(buttonPrefab) as GameGUIText;
 			button.SetText(questionList[i]);
 			button.flyInAnimation.delay = i * 0.25f;
 			button.transform.parent = questions.transform;
 			button.transform.localPosition = Vector3.zero + Vector3.down * i * 1.2f;
 		}*/
+		}
 	}
 	
 	// Update is called once per frame
