@@ -13,8 +13,8 @@ DROP TABLE IF EXISTS sweets_candies;
 DROP TABLE IF EXISTS fats_and_oils;
 DROP TABLE IF EXISTS sweets_sugars;
 
-DROP TABLE IF EXISTS questions;
 DROP TABLE IF EXISTS composition_questions;
+DROP TABLE IF EXISTS questions;
 
 CREATE TABLE units (
 Name VARCHAR(20),
@@ -354,25 +354,22 @@ Alcohol FLOAT,
 Total_Daietary_Fibre FLOAT
 );
 
-CREATE TABLE questions (
-  id MEDIUMINT NOT NULL AUTO_INCREMENT,
-  type VARCHAR(20) NOT NULL,
-  average_score FLOAT DEFAULT '0',
-  num_answers FLOAT DEFAULT '0',
-  PRIMARY KEY (id)
-);
+CREATE TABLE `questions` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `type` varchar(20) NOT NULL,
+  `average_score` float DEFAULT '0',
+  `num_answers` int(11) DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
-CREATE TABLE composition_questions (
-  id MEDIUMINT NOT NULL AUTO_INCREMENT,
-  qid MEDIUMINT,
-
-  base_food VARCHAR(100),
-  composed_food VARCHAR(100),
-  amount_of_composed FLOAT,
-
-  PRIMARY KEY (id),
-  FOREIGN KEY (qid) REFERENCES questions(id)
-);
+CREATE TABLE `composition_questions` (
+  `qid` mediumint(9) DEFAULT NULL,
+  `base_food` varchar(100) DEFAULT NULL,
+  `composed_food` varchar(100) DEFAULT NULL,
+  `amount_of_composed` float DEFAULT NULL,
+  KEY `qid` (`qid`),
+  CONSTRAINT `composition_questions_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `questions` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 load data local infile 'meat_poultry_cleaned.csv' into table meats_poultry fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'miscellaneous_foods_cleaned.csv' into table miscellaneous_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
