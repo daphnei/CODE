@@ -9,8 +9,10 @@
   app = express();
 
   app.get('/', function(req, res) {
-    db.getFood();
-    return res.send('hello world');
+    return db.getFoodData("fast_foods").then(function(data) {
+      console.log(data);
+      return res.send('hello world');
+    });
   });
 
   app.listen(3000);

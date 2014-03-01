@@ -4,7 +4,8 @@ db = require './db'
 app = express()
 
 app.get '/', (req, res) ->
-  db.getFood()
-  res.send 'hello world'
+  db.getFoodData("fast_foods").then (data) ->
+    console.log data
+    res.send 'hello world'
 
 app.listen 3000

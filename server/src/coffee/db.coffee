@@ -1,4 +1,5 @@
 mysql = require 'mysql'
+Q = require 'Q'
 
 connection = mysql.createConnection
   host: 'sql3.freemysqlhosting.net'
@@ -11,9 +12,11 @@ withConnection = (fn) ->
   fn()
   connection.end()
 
-exports.getFood = ->
-  withConnection ->
-    connection.query 'SELECT * FROM egg_dishes', (err, rows, fields) ->
-      throw err if err
+exports.getFoodData = (tableName) ->
+  data = Q.defer()
 
-      console.log rows
+  withConnection ->
+    connection.query 'SELECT * FROM ??', [tableName], (err, rows, fields) ->
+      if err then data.reject err else data.resolve rows
+
+  data.promise
