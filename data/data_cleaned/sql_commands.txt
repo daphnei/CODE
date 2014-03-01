@@ -4,6 +4,11 @@ DROP TABLE IF EXISTS units;
 DROP TABLE IF EXISTS fast_foods;
 DROP TABLE IF EXISTS baked_goods;
 DROP TABLE IF EXISTS egg_dishes;
+DROP TABLE IF EXISTS snacks;
+DROP TABLE IF EXISTS miscellaneous_foods;
+DROP TABLE IF EXISTS mixed_dishes;
+DROP TABLE IF EXISTS meats_poultry;
+DROP TABLE IF EXISTS vegetables;
 
 CREATE TABLE units (
 Name VARCHAR(20),
@@ -136,6 +141,141 @@ Vitamin_D FLOAT,
 Folate FLOAT,
 Vitamin_B12 FLOAT,
 Vitamin_E FLOAT);
+
+CREATE TABLE miscellaneous_foods (
+Name VARCHAR(100),
+Measure FLOAT,
+Unit VARCHAR(100),
+Genre VARCHAR(100),
+Weight FLOAT,
+Energy FLOAT,
+Energy_2 FLOAT,
+Protein FLOAT,
+Carbohydrate FLOAT,
+Total_Sugar FLOAT,
+Total_Fat FLOAT,
+Saturated_Fat FLOAT,
+Monounsaturated_Fat FLOAT,
+Polyunsaturated_Fat FLOAT,
+Cholesterol FLOAT,
+Calcium FLOAT,
+Iron FLOAT,
+Sodium FLOAT,
+Potassium FLOAT,
+Magnesium FLOAT,
+Phosphorus FLOAT,
+Vitamin_A FLOAT,
+Lycopene FLOAT,
+Folate FLOAT
+);
+
+CREATE TABLE mixed_dishes (
+Name VARCHAR(100),
+Measure FLOAT,
+Unit VARCHAR(100),
+Genre VARCHAR(100),
+Weight FLOAT,
+Energy FLOAT,
+Energy_2 FLOAT,
+Protei FLOAT,
+Carbohydrate FLOAT,
+Total_Sugar FLOAT,
+Total_Dietary_Fibre FLOAT,
+Total_Fat FLOAT,
+Saturated_Fat FLOAT,
+Cholesterol FLOAT,
+Calcium FLOAT,
+Iron FLOAT,
+Sodium FLOAT,
+Potassium FLOAT,
+Magnesium FLOAT,
+Phosphorus FLOAT,
+Vitamin_A FLOAT,
+Folate FLOAT,
+Vitamin_C FLOAT,
+Vitamin_B12 FLOAT
+);
+
+CREATE TABLE meats_poultry (
+Name VARCHAR(100),
+Measure FLOAT,
+Unit VARCHAR(100),
+Genre VARCHAR(100),
+Weight FLOAT,
+Energy FLOAT,
+Energy_2 FLOAT,
+Protein FLOAT,
+Carbohydrate FLOAT,
+Total_Fat FLOAT,
+Saturated_Fat FLOAT,
+Monounsaturated_Fat FLOAT,
+Polyunsaturated_Fat FLOAT,
+Cholesterol FLOAT,
+Iron FLOAT,
+Sodium FLOAT,
+Potassium FLOAT,
+Magnesium FLOAT,
+Phosphorus FLOAT,
+Vitamin_A FLOAT,
+Vitamin_D FLOAT,
+Vitamin_B12 FLOAT,
+Folate FLOAT,
+Vitamin_E FLOAT
+);
+
+CREATE TABLE snacks (
+Name VARCHAR(100),
+Measure FLOAT,
+Unit VARCHAR(100),
+Genre VARCHAR(100),
+Weight FLOAT,
+Energy FLOAT,
+Energy_2 FLOAT,
+Protein FLOAT,
+Carbohydrate FLOAT,
+Total_Sugar FLOAT,
+Total_Dietary_Fibre FLOAT,
+Total_Fat FLOAT,
+Saturated_Fat FLOAT,
+Cholesterol FLOAT,
+Calcium FLOAT,
+Iron FLOAT,
+Sodium FLOAT,
+Potassium FLOAT,
+Magnesium FLOAT,
+Phosphorus FLOAT,
+Vitamin_A FLOAT,
+Folate FLOAT,
+Vitamin_C FLOAT,
+Vitamin_B12 FLOAT
+);
+
+CREATE TABLE vegetables (
+Name VARCHAR(100),
+Measure FLOAT,
+Unit VARCHAR(100),
+Genre VARCHAR(100),
+Weight FLOAT,
+Energy FLOAT,
+Energy_2 FLOAT,
+Protein FLOAT,
+Carbohydrate FLOAT,
+Total_Sugar FLOAT,
+Total_Dietary_Fibre FLOAT,
+Total_Fat FLOAT,
+Calcium FLOAT,
+Iron FLOAT,
+Sodium FLOAT,
+Potassium FLOAT,
+Magnesium FLOAT,
+Phosphorus FLOAT,
+Vitamin_A FLOAT,
+Beta_carotene FLOAT,
+Lycopene FLOAT,
+Folate FLOAT,
+Vitamin_C FLOAT,
+Vitamin_B12 FLOAT
+);
 
 load data local infile 'fast_foods_cleaned.csv' into table fast_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'baked_goods_cleaned.csv' into table baked_goods fields terminated by ',' enclosed by '"' lines terminated by '\n';
