@@ -12,11 +12,18 @@ withConnection = (fn) ->
   fn()
   connection.end()
 
-exports.getFoodData = (tableName) ->
+resolveQueryAsPromise = (promiseObj, err, rows, fields) ->
+  if err then promiseObj.reject err else promiseObj.resolve rows
+
+getQuestionsFromTable = (name, limit) ->
   data = Q.defer()
 
   withConnection ->
-    connection.query 'SELECT * FROM ??', [tableName], (err, rows, fields) ->
-      if err then data.reject err else data.resolve rows
+    queryString = 'SELECT * FROM ?? LIMIT ?'
+    connection.query queryString, [name, limit], (err, rows, fields) ->
+      resolveQueryAsPromise data, err, rows, fields
 
   data.promise
+
+exports.getQuestions = (type, limit) ->
+  getQuestionsFromTable(type + '_questions', limit)

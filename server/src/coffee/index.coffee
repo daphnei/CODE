@@ -3,9 +3,11 @@ db = require './db'
 
 app = express()
 
-app.get '/', (req, res) ->
-  db.getFoodData("fast_foods").then (data) ->
-    console.log data
-    res.send 'hello world'
+app.get '/questions', (req, res) ->
+  {type, limit} = req.query
+  limit ?= 10
+
+  db.getQuestions(type, limit).then (data) ->
+    res.json data
 
 app.listen 3000
