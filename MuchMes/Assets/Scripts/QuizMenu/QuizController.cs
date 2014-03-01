@@ -3,6 +3,8 @@ using System.Collections;
 
 public class QuizController : MonoBehaviour {
 
+	GameGUIText header;
+
 	// Use this for initialization
 	void Start () {
 	
