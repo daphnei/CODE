@@ -4,6 +4,7 @@ connection = mysql.createConnection
   host: 'sql3.freemysqlhosting.net'
   user: 'sql330935'
   password: 'fW2!cZ8%'
+  database: 'sql330935'
 
 withConnection = (fn) ->
   connection.connect()
@@ -12,9 +13,7 @@ withConnection = (fn) ->
 
 exports.getFood = ->
   withConnection ->
-    console.log "Getting food"
-    connection.query 'SELECT 1 + 1 AS solution', (err, rows, fields) ->
+    connection.query 'SELECT * FROM egg_dishes', (err, rows, fields) ->
       throw err if err
 
-      console.log "Got food"
       console.log rows

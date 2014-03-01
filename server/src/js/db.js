@@ -7,7 +7,8 @@
   connection = mysql.createConnection({
     host: 'sql3.freemysqlhosting.net',
     user: 'sql330935',
-    password: 'fW2!cZ8%'
+    password: 'fW2!cZ8%',
+    database: 'sql330935'
   });
 
   withConnection = function(fn) {
@@ -18,12 +19,10 @@
 
   exports.getFood = function() {
     return withConnection(function() {
-      console.log("Getting food");
-      return connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
+      return connection.query('SELECT * FROM egg_dishes', function(err, rows, fields) {
         if (err) {
           throw err;
         }
-        console.log("Got food");
         return console.log(rows);
       });
     });
