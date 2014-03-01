@@ -46,10 +46,10 @@ exports.generateQuestion = (response, type, callback) ->
     unit_for_chosen = units[rand_index];
 
     queryString =  "SELECT t1.Name as Name1, t1.Genre as Genre1, t1.Unit as Unit1, t1.Measure as Measure1, t1.#{chosen_field} as Value1, 
-                           t2.Name as Name2, t2.Genre as Genre2, t1.Unit as Unit2, t2.Measure as Measure2, t2.#{chosen_field} as Value2
+                           t2.Name as Name2, t2.Genre as Genre2, t2.Unit as Unit2, t2.Measure as Measure2, t2.#{chosen_field} as Value2
                     FROM all_foods t1, all_foods t2
-                    WHERE t1.#{chosen_field} > 0 AND t2.#{chosen_field} > 0 AND t1.#{chosen_field} >= 2 * t2.#{chosen_field} AND
-                          t1.#{chosen_field} < 5 * t2.#{chosen_field}
+                    WHERE t1.#{chosen_field} > 0 AND t2.#{chosen_field} > 0 AND  t2.#{chosen_field} >= 2 AND
+                          t1.#{chosen_field} >= 2 * t2.#{chosen_field} AND t1.#{chosen_field} < 5 * t2.#{chosen_field}
                     ORDER BY RAND() LIMIT 1;"
     db.connectAndQuery(queryString).then( (data) ->
       console.log(data);
