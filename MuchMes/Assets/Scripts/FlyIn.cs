@@ -23,6 +23,11 @@ public class FlyIn : MonoBehaviour {
 		this.t = t * multiplier;
 
 		if (t > float.Epsilon) {
+
+			Color c = this.renderer.material.color;
+			c.a = 0.5f;
+			this.renderer.material.color = c;
+
 			this.transform.localPosition = Vector3.Lerp(startPosition, startPosition + flyPositionOffset, t);
 			this.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotate), Quaternion.Euler(startRotate + new Vector3(0, 0, flyRotationOffset)), t);
 		}
