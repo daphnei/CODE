@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System;
 
 public class QuizController : MonoBehaviour {
-	
+
+	public static int prevScore = -1;
+
 	// public GameGUIText buttonPrefab;
 
 	GameGUIText header;
@@ -97,6 +99,11 @@ public class QuizController : MonoBehaviour {
     }
 
 	public void NextQuestion() {
+		if (questions.Count == 0) {
+			QuizController.prevScore = score;
+			Application.LoadLevel("StartMenu");
+			return;
+		}
 		Question question = questions[0];
 		questions.RemoveAt(0);
 
