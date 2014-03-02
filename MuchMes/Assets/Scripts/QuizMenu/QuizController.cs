@@ -16,6 +16,7 @@ public class QuizController : MonoBehaviour {
 	QuizView currentQuizView = null;
 
 	List<Question> questions = new List<Question>();
+    int questionNumber = 1;
 
 	void Awake() {
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
@@ -49,6 +50,12 @@ public class QuizController : MonoBehaviour {
 	void Update () {
 
 	}
+
+    public void AnswerQuestion(float correctness) {
+        questionNumber++;
+        header.SetText("Question " + questionNumber);
+        NextQuestion();
+    }
 
 	public void NextQuestion() {
 		Question question = questions[0];

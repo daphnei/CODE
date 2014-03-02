@@ -5,24 +5,46 @@ using System.IO;
 using System.Text;
 using SimpleJSON;
 using System.Collections.Generic;
+using System;
 
 public static class RequestServer {
-	public static List<Question> GetQuestions() {
-		HttpWebRequest request = (HttpWebRequest)WebRequest.Create ("http://localhost:3000/questions/generate/random?count=10");
+
+	static String serverURL = "http://agile-basin-3337.herokuapp.com/";
+
+	private static JSONNode Request(String requestStr) {
+		HttpWebRequest request = (HttpWebRequest)WebRequest.Create (serverURL + requestStr);
 		HttpWebResponse response = (HttpWebResponse)request.GetResponse ();
 		Stream receiveStream = response.GetResponseStream ();
 		StreamReader reader = new StreamReader (receiveStream);
+		JSONNode j = JSON.Parse (reader.ReadToEnd ());
+		reader.Close ();
+		response.Close ();
+		return j;
+	}
 
+	private static JSONNode SecureRequest(String requestStr) {
+		HttpWebRequest request = (HttpWebRequest)WebRequest.Create (serverURL + requestStr);
+		HttpWebResponse response = (HttpWebResponse)request.GetResponse ();
+		Stream receiveStream = response.GetResponseStream ();
+		StreamReader reader = new StreamReader (receiveStream);
+		JSONNode j = JSON.Parse (reader.ReadToEnd ());
+		reader.Close ();
+		response.Close ();
+		return j;
+	}
 
-		JSONNode json = JSON.Parse (reader.ReadToEnd ());
+	public static List<Question> GetQuestions() {
+		JSONNode json = Request("questions/generate/random?count=10");
 		List<Question> questions = new List<Question>();
 		foreach (JSONNode node in json.AsArray) {
 			questions.Add(Question.FromJSON(node));
 		}
-
-		reader.Close ();
-		response.Close ();
-
 		return questions;
+	}
+
+	public static string GetSearchImageURL(String search) {
+		JSONNode json = Request("image?keyword=" + search);
+		//
+			return "AS";
 	}
 }
