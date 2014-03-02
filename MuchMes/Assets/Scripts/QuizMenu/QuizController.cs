@@ -21,6 +21,7 @@ public class QuizController : MonoBehaviour {
     int questionNumber = 1;
 
 		Dictionary<string, GameObject> catStates;
+		public GameObject cat;
 		public string currentCatState = "Neutral";
 
 	void Awake() {
@@ -28,6 +29,7 @@ public class QuizController : MonoBehaviour {
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
 		this.scoreText = GameObject.Find ("ScoreHeader").GetComponent<GameGUIText> ();
 				this.scoreText.SetTextPure("Score: " + 0);
+				this.cat = GameObject.Find ("CatObject");
 				this.catStates = new Dictionary<string, GameObject> {
 						{"Happy", GameObject.Find("HappyCat")},
 						{"Neutral", GameObject.Find("NeutralCat")},
@@ -38,11 +40,15 @@ public class QuizController : MonoBehaviour {
 		foreach (QuizView view in GameObject.FindObjectsOfType<QuizView>()) {
 			quizViews.Add(view);
 			switch (view.gameObject.name) {
-				case "CompositionQuizView":
-					compositionQuizView = view;
+						case "CompositionQuizView":
+								compositionQuizView = view;
+								this.cat.transform.parent = compositionQuizView.transform;
+								this.cat.transform.position = Vector3.zero;
 					break;
-				case "CompareQuizView":
-					compareQuizView = view;
+						case "CompareQuizView":
+								compareQuizView = view;
+								this.cat.transform.parent = compareQuizView.transform;
+								this.cat.transform.position = Vector3.zero;
 					break;
 			}
 		}
@@ -106,12 +112,14 @@ public class QuizController : MonoBehaviour {
 				this.currentQuizView = compositionQuizView;
 			else if (question is CompareQuestion)
 				this.currentQuizView = compareQuizView;
+			
 
 			if (currentQuizView == null) {
 				NextQuestion();
 				return;
 			}
-
+						this.cat.transform.parent = this.currentQuizView.transform;
+						this.cat.transform.position = Vector3.zero;
 			this.currentQuizView.Show();
 			this.currentQuizView.Fill(question);
 		};
