@@ -449,25 +449,25 @@ CREATE TABLE nuts_legumes (
 );
 
 CREATE TABLE `questions` (
-  `qID` mediumint(9) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
   `total_score` int DEFAULT 0,
   `num_responses` int DEFAULT 0,
+  `qID` mediumint(9) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`qID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 CREATE TABLE composition_questions (
-  qID mediumint(9) DEFAULT NULL,
   food1 int,
   food2 int,
+  qID mediumint(9) DEFAULT NULL,
   KEY qID (qID),
   CONSTRAINT `composition_questions_ibfk_1` FOREIGN KEY (`qID`) REFERENCES `questions` (`qID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 CREATE TABLE compare_questions (
-  qID mediumint(9) DEFAULT NULL,
   food1 int,
   food2 int,
+  qID mediumint(9) DEFAULT NULL,
   KEY qID (qID),
   CONSTRAINT `compare_questions_ibfk_1` FOREIGN KEY (`qID`) REFERENCES `questions` (`qID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -486,6 +486,7 @@ load data local infile 'fruits_cleaned.csv' into table fruits fields terminated 
 load data local infile 'nuts_legumes_cleaned.csv' into table nuts_legumes fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'dairy_cleaned.csv' into table dairy fields terminated by ',' enclosed by '"' lines terminated by '\n';
 
+
 CREATE TABLE all_foods (
 	Name VARCHAR(100),
 	Genre VARCHAR(100),
@@ -500,7 +501,6 @@ CREATE TABLE all_foods (
 	Vitamin_A FLOAT,
 	Calcium FLOAT,
 	Iron FLOAT,
-    Image_Url VARCHAR(400),
 	PRIMARY KEY (id),
 	id MEDIUMINT NOT NULL AUTO_INCREMENT
 	) 
