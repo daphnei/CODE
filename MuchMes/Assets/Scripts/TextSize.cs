@@ -31,6 +31,7 @@ using System.Collections;
  
  */
 using System;
+using System.Text.RegularExpressions;
 
 public class TextSize {
 	private Hashtable dict; //map character -> width
@@ -85,7 +86,7 @@ public class TextSize {
 	}
 
 	public string SplitText(string s, float maxWidth) {
-        string[] words = s.Split(' ');
+        string[] words = Regex.Split(s, " \n\r");
         string compiled = "";
         float spaceWidth = GetTextWidth(" ");
 

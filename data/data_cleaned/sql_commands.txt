@@ -531,3 +531,8 @@ CREATE TABLE all_foods (
 	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from dairy
 ;
 
+CREATE TABLE food_images (
+    id MEDIUMINT NOT NULL,
+    url VARCHAR(400)
+);
+

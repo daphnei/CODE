@@ -49,8 +49,8 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public void Show() {
-		this.gameObject.SetActive(true);
-		SetAnimationsRecursive(true, this.gameObject);
+        this.gameObject.SetActive(true);
+        SetAnimationsRecursive(true, this.gameObject);
 	}
 
 	public void Hide(Action onComplete) {

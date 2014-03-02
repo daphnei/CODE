@@ -36,13 +36,11 @@ public class FlyIn : MonoBehaviour {
 				t = 1;
 		}
 
+        Reposition();
+
 		// Color c = this.renderer.material.color;
 		// c.a = 0.5f;
 		// this.renderer.material.color = c;
-
-		float lerp = 1 - Mathf.SmoothStep(0, 1, t);
-		this.transform.localPosition = Vector3.Lerp(startPosition, startPosition + flyPositionOffset * sign, lerp);
-		this.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotate), Quaternion.Euler(startRotate + new Vector3(0, 0, flyRotationOffset)), lerp);
 	}
 
 	void OnMouseDown() {
@@ -60,4 +58,10 @@ public class FlyIn : MonoBehaviour {
 		this.d = delay;
 		this.sign = -1;
 	}
+
+    private void Reposition() {
+        float lerp = 1 - Mathf.SmoothStep(0, 1, t);
+        this.transform.localPosition = Vector3.Lerp(startPosition, startPosition + flyPositionOffset * sign, lerp);
+        this.transform.localRotation = Quaternion.Lerp(Quaternion.Euler(startRotate), Quaternion.Euler(startRotate + new Vector3(0, 0, flyRotationOffset)), lerp);
+    }
 }

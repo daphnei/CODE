@@ -9,13 +9,15 @@ public class ImageView : MonoBehaviour {
 
 	void Start () {
 		loadedTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
-		string url = "http://adam.lifemakesuslaugh.com/images/me.png";
-		WWW www = new WWW(url);
-		StartCoroutine(WaitForRequest(www));
+		StartCoroutine(WaitForRequest());
 	}
 	
-	IEnumerator WaitForRequest(WWW www)
+	IEnumerator WaitForRequest()
 	{
+		//string url = RequestServer.GetSearchImageURL("cat");
+        string url = "http://www.adam.lifemakesuslaugh.com/images/me.png";
+		WWW www = new WWW(url);
+
 		yield return www;
 
 		if (www.error == null)
@@ -33,8 +35,8 @@ public class ImageView : MonoBehaviour {
 			if (height < loadedTexture.height)
 				y = (loadedTexture.height - height) / 2;
 
-			float pixelsToUnit = (width / unitSize) * 0.5f;
-			this.GetComponent<SpriteRenderer>().sprite = Sprite.Create(loadedTexture, new Rect(x, y, width, height), new Vector2(0, 1), pixelsToUnit);
+			float pixelsToUnit = (width / unitSize);
+			this.GetComponent<SpriteRenderer>().sprite = Sprite.Create(loadedTexture, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f), pixelsToUnit);
 		} else {
 			Debug.Log("WWW Error: "+ www.error);
 		}    

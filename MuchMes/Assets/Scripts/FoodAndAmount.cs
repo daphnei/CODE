@@ -12,6 +12,23 @@ public class FoodAndAmount
 	public string genre;
 	public float amount;
 
+    public string NameItem {
+        get {
+            int i = name.IndexOf(',');
+            if (i < 0)
+                return name;
+            return name.Substring(0, i).Trim();
+        }
+    }
+    public string NameDetails { 
+        get {
+            int i = name.IndexOf(',');
+            if (i < 0)
+                return "";
+            return name.Substring(i+1).Trim();
+        }
+    }
+
 	public static FoodAndAmount FromJSON(JSONNode node) {
 		return new FoodAndAmount {
 			name = node["name"].Value, 
