@@ -6,6 +6,8 @@ public class QuizView : MonoBehaviour {
 	
 	protected GameGUIText questionText;
 	protected QuizController controller;
+	protected ImageView optionAImg;
+	protected ImageView optionBImg;
 
 	public float transitionTime = 0.5f;
 	public Action transitionAction = null;
@@ -19,6 +21,18 @@ public class QuizView : MonoBehaviour {
 		foreach (GameGUIText guiText in this.transform.GetComponentsInChildren<GameGUIText>()) {
 			if (guiText.gameObject.name == "QuestionText")
 				questionText = guiText;
+		}
+		foreach (ImageView guiText in this.transform.GetComponentsInChildren<ImageView>())
+		{
+			switch (guiText.gameObject.name)
+			{
+			case "ImageViewA":
+				optionAImg = guiText;
+				break;
+			case "ImageViewB":
+				optionBImg = guiText;
+				break;
+		  }
 		}
 	}
 

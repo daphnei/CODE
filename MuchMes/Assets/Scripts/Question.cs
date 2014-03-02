@@ -33,11 +33,15 @@ public class CompositionQuestion : Question {
 	public string valueBeingCompared;
 	public FoodAndAmount baseFood;
 	public FoodAndAmount composedFood;
+	public float actualValue;
+	public string unit;
 
 	public override void SetPropertiesFromJSON(JSONNode node) {
 		valueBeingCompared = node["parameter"].Value;
 		baseFood = FoodAndAmount.FromJSON(node["food1"]);
 		composedFood = FoodAndAmount.FromJSON(node["food2"]);
+		actualValue = baseFood.amount / composedFood.amount;
+		unit = node ["unit"].Value;
 	}
 }
 
