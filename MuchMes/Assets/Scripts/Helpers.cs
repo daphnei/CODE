@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using System.Collections.Generic;
 
 public static class Helpers
 {
@@ -22,4 +23,17 @@ public static class Helpers
     {
         return s.Substring(0, Math.Min(cap, s.Length));
     }
+
+	public static void Shuffle<T>(this IList<T> list)  
+	{  
+		System.Random rng = new System.Random();  
+		int n = list.Count;  
+		while (n > 1) {  
+			n--;  
+			int k = rng.Next(n + 1);  
+			T value = list[k];  
+			list[k] = list[n];  
+			list[n] = value;  
+		}  
+	}
 }

@@ -34,7 +34,7 @@ public static class RequestServer {
 	}
 
 	public static List<Question> GetQuestions() {
-		JSONNode json = Request("questions/generate/random?count=10");
+		JSONNode json = Request("questions/cached?count=20");
 		List<Question> questions = new List<Question>();
 		foreach (JSONNode node in json.AsArray) {
 			questions.Add(Question.FromJSON(node));
@@ -44,7 +44,7 @@ public static class RequestServer {
 
 	public static string GetSearchImageURL(String search) {
 		JSONNode json = Request("image?keyword=" + search);
-		//
-			return "AS";
+
+		return "AS";
 	}
 }

@@ -28,7 +28,7 @@ public class ImageView : MonoBehaviour {
 	
 	IEnumerator WaitForRequest(String url)
 	{
-        url = "http://www.adam.lifemakesuslaugh.com/images/me.png";
+        //url = "http://www.adam.lifemakesuslaugh.com/images/me.png";
 		WWW www = new WWW(url);
 
 		yield return www;

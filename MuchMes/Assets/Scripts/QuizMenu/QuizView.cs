@@ -13,8 +13,9 @@ public class QuizView : MonoBehaviour {
 
 	public float transitionTime = 0.5f;
 	public Action transitionAction = null;
-
 	float transitionTimer = 0f;
+
+	protected bool clicked = false;
 
 	// Use this for initialization
 	protected virtual void Awake () {
@@ -60,15 +61,16 @@ public class QuizView : MonoBehaviour {
 		}
 	}
 
-	public virtual void DetectClick(String name, int value) {
-        this.controller.AnswerQuestion(1f);
+	public virtual void DetectClick(GameGUIText text) {
+
 	}
 
 	public virtual void Fill(Question question) {
 		optionAText.SetTextPure(FormatFood(question.foodA));
 		optionBText.SetTextPure(FormatFood(question.foodB));
-		optionAImg.UpdatePicture("ASD");
-		optionBImg.UpdatePicture("ASD");
+		optionAImg.UpdatePicture(question.foodA.image);
+		optionBImg.UpdatePicture(question.foodB.image);
+		clicked = false;
 	}
 		
 	private string FormatFood(FoodAndAmount f)
@@ -80,8 +82,8 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public void Show() {
-        ShowNoAnimate();
         SetAnimationsRecursive(true, this.gameObject);
+        ShowNoAnimate();
 	}
 
 	public void Hide(Action onComplete) {

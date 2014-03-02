@@ -51,6 +51,7 @@ public class FlyIn : MonoBehaviour {
 		this.t = 0;
 		this.d = delay;
 		this.sign = 1;
+        Reposition();
 	}
 
 	public void TriggerOut() {
