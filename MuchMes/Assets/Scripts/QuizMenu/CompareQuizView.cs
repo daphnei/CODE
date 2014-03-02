@@ -3,8 +3,6 @@ using System.Collections;
 
 public class CompareQuizView : QuizView {
 
-	protected GameGUIText optionAText;
-	protected GameGUIText optionBText;
 
 	protected override void Awake()
 	{
@@ -13,10 +11,6 @@ public class CompareQuizView : QuizView {
 		foreach (GameGUIText guiText in this.transform.GetComponentsInChildren<GameGUIText>()) {
 			switch(guiText.gameObject.name)
 			{
-				case "OptionA":
-					optionAText = guiText; break;
-				case "OptionB":
-					optionBText = guiText; break;
 			}
 		}
 
@@ -26,8 +20,8 @@ public class CompareQuizView : QuizView {
 	{
 		CompareQuestion compQuestions = question as CompareQuestion;
 		questionText.SetText("Which has more " + compQuestions.valueBeingCompared + "?");
-        optionAText.SetTextPure(compQuestions.foodA.NameItem + "\n<size=30>" + compQuestions.foodA.NameDetails + "</size>");
-		optionBText.SetTextPure(compQuestions.foodB.NameItem + "\n<size=30>" + compQuestions.foodB.NameDetails + "</size>");
+
+		base.Fill (question);
 	}
 
 	 public override void DetectClick(string name, int value)

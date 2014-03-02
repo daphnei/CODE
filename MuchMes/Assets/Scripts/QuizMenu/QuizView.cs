@@ -6,6 +6,8 @@ public class QuizView : MonoBehaviour {
 	
 	protected GameGUIText questionText;
 	protected QuizController controller;
+	protected GameGUIText optionAText;
+	protected GameGUIText optionBText;
 	protected ImageView optionAImg;
 	protected ImageView optionBImg;
 
@@ -21,6 +23,10 @@ public class QuizView : MonoBehaviour {
 		foreach (GameGUIText guiText in this.transform.GetComponentsInChildren<GameGUIText>()) {
 			if (guiText.gameObject.name == "QuestionText")
 				questionText = guiText;
+			if (guiText.gameObject.name == "OptionA")
+				optionAText = guiText;
+			if (guiText.gameObject.name == "OptionB")
+				optionBText = guiText;
 		}
 		foreach (ImageView guiText in this.transform.GetComponentsInChildren<ImageView>())
 		{
@@ -59,7 +65,8 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public virtual void Fill(Question question) {
-
+		optionAText.SetTextPure(question.foodA.NameItem + "\n<size=30>" + question.foodA.NameDetails + "</size>");
+		optionBText.SetTextPure(question.foodB.NameItem + "\n<size=30>" + question.foodB.NameDetails + "</size>");
 	}
 
 	public void Show() {
