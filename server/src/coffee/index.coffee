@@ -1,6 +1,7 @@
 express = require 'express'
 db = require './db'
 gen = require './question_gen'
+imagesearch = require './imagesearch'
 
 app = express()
 
@@ -33,5 +34,12 @@ app.get '/questions/generate', (req, res) ->
   gen.generateQuestions(type, count).then (data) ->
     res.status(200)
     res.send(data)
+
+app.get '/image', (req, res) ->
+	keyword = req.query.keyword
+	console.log("GOT THIS FAR: " + keyword)
+	imagesearch.findImage(keyword).then (data) ->
+		res.status(200)
+		res.send(data)
 
 app.listen 3000

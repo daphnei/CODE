@@ -1,6 +1,6 @@
 index = require './index'
 db = require './db'
-Q = require 'Q'
+Q = require 'q'
 _ = require 'underscore'
 
 a_per_b_question = "composition"
