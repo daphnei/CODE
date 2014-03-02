@@ -50,6 +50,9 @@ public class CompositionQuestion : Question {
 
 		valueBeingCompared = node["parameter"].Value;
 		actualValue = composedFood.amount / baseFood.amount;
+		if (float.IsNaN(actualValue) || float.IsInfinity(actualValue)) {
+			Debug.Log("NAN!! " +baseFood.amount + " ssda " + composedFood.amount);
+		}
 		unit = node ["unit"].Value;
 	}
 }
