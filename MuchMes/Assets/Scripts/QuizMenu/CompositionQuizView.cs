@@ -9,6 +9,10 @@ public class CompositionQuizView : QuizView {
 	protected GameGUIText choiceB;
 	protected GameGUIText choiceC;
 
+	List<GameGUIText> choices = new List<GameGUIText>();
+
+	CompositionQuestion q;
+
 	protected override void Awake ()
 	{
 		base.Awake ();
@@ -26,6 +30,10 @@ public class CompositionQuizView : QuizView {
 				break;
 			}
 		}
+
+		choices.Add(choiceA);
+		choices.Add(choiceB);
+		choices.Add(choiceC);
 	}
 
 	public override void Fill(Question question)
@@ -39,34 +47,34 @@ public class CompositionQuizView : QuizView {
 			compQuestions.actualValue
 		};
 
-		choiceA.SetText (values[0].ToString("#.#"));
-		choiceB.SetText (values[1].ToString("#.#"));
-		choiceC.SetText (values[2].ToString("#.#"));
+		values.Shuffle();
+
+		for (int i = 0; i < choices.Count; i++) {
+			choices[i].SetTextPure(values[i].ToString("#.#"));
+			choices[i].value = values[i];
+			choices[i].renderer.material.color = choices[i].startColor;
+		}
 
 		base.Fill (question);
+		q = compQuestions;
 	}
 
     public override void DetectClick(GameGUIText text)
     {
-        this.controller.AnswerQuestion(1f);
-
 		if (clicked)
 			return;
 		
 		clicked = true;
 		
-		/*text.renderer.material.color = Color.red;
+		text.renderer.material.color = Color.red;
+		foreach(GameGUIText t in choices)
+			if (t.value == q.actualValue)
+				t.renderer.material.color = Color.green;
 		
-		bool winnerIsA = currentQuestion.foodA.amount > currentQuestion.foodB.amount;
-		bool choosenA = text.name == "ButtonA";
-		
-		GameGUIText winner = winnerIsA ? buttonAText : buttonBText;
-		winner.renderer.material.color = Color.green;
-		
-		float result = winnerIsA == choosenA ? 1f : 0f;*/
+		float result = text.value == q.actualValue  ? 1f : 0f;
 		
 		TimerManager.instance.StartTimer(delegate {
-			this.controller.AnswerQuestion(1);//result);
+				this.controller.AnswerQuestion(result);
 		}, 1);
     }
 }

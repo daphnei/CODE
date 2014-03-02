@@ -14,7 +14,7 @@ public class GameGUIText : MonoBehaviour {
 	public float textMaxWidth = 4;
 	public QuizView view;
 	public String guiName;
-	public int value;
+	public float value;
 
 	// Use this for initialization
 	void Awake () {
