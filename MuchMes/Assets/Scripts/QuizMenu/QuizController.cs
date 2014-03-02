@@ -8,6 +8,8 @@ public class QuizController : MonoBehaviour {
 	// public GameGUIText buttonPrefab;
 
 	GameGUIText header;
+		GameGUIText scoreText;
+		int score = 0;
 
 	List<QuizView> quizViews = new List<QuizView>();
 	QuizView compositionQuizView;
@@ -19,7 +21,10 @@ public class QuizController : MonoBehaviour {
     int questionNumber = 1;
 
 	void Awake() {
+				this.score = 0;
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
+		this.scoreText = GameObject.Find ("ScoreHeader").GetComponent<GameGUIText> ();
+				this.scoreText.SetTextPure("Score: " + 0);
 		foreach (QuizView view in GameObject.FindObjectsOfType<QuizView>()) {
 			quizViews.Add(view);
 			switch (view.gameObject.name) {
@@ -50,11 +55,17 @@ public class QuizController : MonoBehaviour {
 	void Update () {
 
 	}
-
+	
+	public void IncrementScore(int score) {
+		this.score += score;
+				this.scoreText.SetTextPure ("Score: " + this.score);
+	}
     public void AnswerQuestion(float correctness) {
         questionNumber++;
-        header.SetTextPure("Question " + questionNumber);
+		header.SetTextPure("Q." + questionNumber);
         NextQuestion();
+		
+		
     }
 
 	public void NextQuestion() {
