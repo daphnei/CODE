@@ -31,7 +31,7 @@ public class CompositionQuizView : QuizView {
 	public override void Fill(Question question)
 	{
 		CompositionQuestion compQuestions = question as CompositionQuestion;
-		questionText.SetText("How much " + compQuestions.valueBeingCompared.Replace('_', ' ') + "?");
+		questionText.SetText("How much of " + compQuestions.baseFood.NameItem + " does it take to get the " + compQuestions.valueBeingCompared.Replace('_', ' ') + " in" + compQuestions.composedFood.NameItem  + "?");
 
 		IList<float> values = new List<float> {
 			UnityEngine.Random.Range (0.25f, 4),
