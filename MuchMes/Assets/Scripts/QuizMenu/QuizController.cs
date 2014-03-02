@@ -23,6 +23,7 @@ public class QuizController : MonoBehaviour {
     int questionNumber = 1;
 
 		Dictionary<string, GameObject> catStates;
+		public GameObject cat;
 		public string currentCatState = "Neutral";
 
 	void Awake() {
@@ -30,6 +31,7 @@ public class QuizController : MonoBehaviour {
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
 		this.scoreText = GameObject.Find ("ScoreHeader").GetComponent<GameGUIText> ();
 				this.scoreText.SetTextPure("Score: " + 0);
+				this.cat = GameObject.Find ("CatObject");
 				this.catStates = new Dictionary<string, GameObject> {
 						{"Happy", GameObject.Find("HappyCat")},
 						{"Neutral", GameObject.Find("NeutralCat")},
@@ -40,11 +42,15 @@ public class QuizController : MonoBehaviour {
 		foreach (QuizView view in GameObject.FindObjectsOfType<QuizView>()) {
 			quizViews.Add(view);
 			switch (view.gameObject.name) {
-				case "CompositionQuizView":
-					compositionQuizView = view;
+						case "CompositionQuizView":
+								compositionQuizView = view;
+								this.cat.transform.parent = compositionQuizView.transform;
+								this.cat.transform.position = Vector3.zero;
 					break;
-				case "CompareQuizView":
-					compareQuizView = view;
+						case "CompareQuizView":
+								compareQuizView = view;
+								this.cat.transform.parent = compareQuizView.transform;
+								this.cat.transform.position = Vector3.zero;
 					break;
 			}
 		}
@@ -57,6 +63,7 @@ public class QuizController : MonoBehaviour {
 		private void SetCatState(string newState) {
 				catStates [this.currentCatState].SetActive (false);
 				catStates [newState].SetActive (true);
+				this.currentCatState = newState;
 		}
 	
 	// Use this for initialization
@@ -81,15 +88,15 @@ public class QuizController : MonoBehaviour {
         questionNumber++;
 		header.SetTextPure("Q." + questionNumber);
         NextQuestion();
-		
+				Debug.Log ("Answered question with correctness: " + correctness);
 				this.IncrementScore ((int)(correctness * 20));
-				if (correctness == 1) {
+				if (Mathf.Approximately(correctness, 1)) {
 						if (currentCatState == "Neutral") {
 								this.SetCatState ("Happy");
 						} else if (currentCatState == "Sad") {
 								this.SetCatState("Neutral");
 						}
-				} else if (correctness == 0) {
+				} else if (Mathf.Approximately(correctness, 0)) {
 						if (currentCatState == "Neutral") {
 								this.SetCatState ("Sad");
 						} else if (currentCatState == "Happy") {
@@ -112,12 +119,14 @@ public class QuizController : MonoBehaviour {
 				this.currentQuizView = compositionQuizView;
 			else if (question is CompareQuestion)
 				this.currentQuizView = compareQuizView;
+			
 
 			if (currentQuizView == null) {
 				NextQuestion();
 				return;
 			}
-
+						this.cat.transform.parent = this.currentQuizView.transform;
+						this.cat.transform.position = Vector3.zero;
 			this.currentQuizView.Show();
 			this.currentQuizView.Fill(question);
 		};
