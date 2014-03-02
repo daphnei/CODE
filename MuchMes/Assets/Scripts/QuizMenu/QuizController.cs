@@ -20,12 +20,21 @@ public class QuizController : MonoBehaviour {
 	List<Question> questions = new List<Question>();
     int questionNumber = 1;
 
+		Dictionary<string, GameObject> catStates;
+		public string currentCatState = "Neutral";
 
 	void Awake() {
 				this.score = 0;
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();
 		this.scoreText = GameObject.Find ("ScoreHeader").GetComponent<GameGUIText> ();
 				this.scoreText.SetTextPure("Score: " + 0);
+				this.catStates = new Dictionary<string, GameObject> {
+						{"Happy", GameObject.Find("HappyCat")},
+						{"Neutral", GameObject.Find("NeutralCat")},
+						{"Sad", GameObject.Find("SadCat")},
+				};
+				this.catStates ["Happy"].SetActive (false);
+				this.catStates ["Sad"].SetActive (false);
 		foreach (QuizView view in GameObject.FindObjectsOfType<QuizView>()) {
 			quizViews.Add(view);
 			switch (view.gameObject.name) {
@@ -42,6 +51,11 @@ public class QuizController : MonoBehaviour {
 		if (compareQuizView == null)
 			Debug.LogWarning("No compare view!");
 	}
+
+		private void SetCatState(string newState) {
+				catStates [this.currentCatState].SetActive (false);
+				catStates [newState].SetActive (true);
+		}
 	
 	// Use this for initialization
 	void Start () {
@@ -66,7 +80,20 @@ public class QuizController : MonoBehaviour {
 		header.SetTextPure("Q." + questionNumber);
         NextQuestion();
 		
-		
+				this.IncrementScore ((int)(correctness * 20));
+				if (correctness == 1) {
+						if (currentCatState == "Neutral") {
+								this.SetCatState ("Happy");
+						} else if (currentCatState == "Sad") {
+								this.SetCatState("Neutral");
+						}
+				} else if (correctness == 0) {
+						if (currentCatState == "Neutral") {
+								this.SetCatState ("Sad");
+						} else if (currentCatState == "Happy") {
+								this.SetCatState("Neutral");
+						}
+				}
     }
 
 	public void NextQuestion() {
