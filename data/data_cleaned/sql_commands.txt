@@ -532,7 +532,7 @@ CREATE TABLE all_foods (
 ;
 
 CREATE TABLE food_images (
-    id MEDIUMINT NOT NULL AUTO_INCREMENT,
-    url VARCHAR(400),
-    PRIMARY KEY (`id`)
+    id MEDIUMINT NOT NULL,
+    url VARCHAR(400)
 );
+
