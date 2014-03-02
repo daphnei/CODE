@@ -3,8 +3,7 @@
   var Q, connection, mysql;
 
   mysql = require('mysql');
-
-  Q = require('Q');
+  Q = require('q');
 
   connection = mysql.createConnection({
     host: 'sql3.freemysqlhosting.net',
