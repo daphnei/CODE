@@ -14,11 +14,14 @@ public abstract class Question
 		Question result;
 
 		switch (node["question_type"].Value) {
-		case "composition":
-			result = new CompositionQuestion();
-			break;
-		default:
-			throw new InvalidOperationException("Unrecognized question type.");
+			case "composition":
+				result = new CompositionQuestion();
+				break;
+			case "compare":
+				result = new CompareQuestion();
+				break;
+			default:
+				throw new InvalidOperationException("Unrecognized question type.");
 		}
 
 		result.SetPropertiesFromJSON(node);
@@ -27,11 +30,26 @@ public abstract class Question
 }
 
 public class CompositionQuestion : Question {
+	public string valueBeingCompared;
 	public FoodAndAmount baseFood;
 	public FoodAndAmount composedFood;
 
 	public override void SetPropertiesFromJSON(JSONNode node) {
+		valueBeingCompared = node["parameter"].Value;
 		baseFood = FoodAndAmount.FromJSON(node["food1"]);
 		composedFood = FoodAndAmount.FromJSON(node["food2"]);
+	}
+}
+
+
+public class CompareQuestion : Question {
+	public string valueBeingCompared;
+	public FoodAndAmount foodA;
+	public FoodAndAmount foodB;
+	
+	public override void SetPropertiesFromJSON(JSONNode node) {
+		valueBeingCompared = node["parameter"].Value;
+		foodA = FoodAndAmount.FromJSON(node["food1"]);
+		foodB = FoodAndAmount.FromJSON(node["food2"]);
 	}
 }
