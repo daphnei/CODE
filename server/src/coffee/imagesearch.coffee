@@ -1,32 +1,36 @@
-accountKey = 'o9QSUjMLDKCjfx5q30UEv3v+S+3X7dXxgClRRjeGgS4='
-customerID = '6a59e0cf-8e49-4b12-a353-e5342feaebfe'
+https = require("https")
+Q = require("q")
 
-# var rootUri = 'https://api.datamarket.azure.com/Bing/Search';
-# var auth    = new Buffer([ acctKey, acctKey ].join(':')).toString('base64');
-# var request = require('request').defaults({
-#   headers : {
-#     'Authorization' : 'Basic ' + auth
-#   }
-# });
+cx = '017716653312651474242%3Af1wy4gpl-78'
+key = 'AIzaSyAwNFSNnkwld4r-GF3yYcaH0DBkpbck6sw'
+num = 1
+safe = 'high'
+searchType = 'image'
+imgType = ''
 
-# // here's how to perform a query:
-# app.post('/bing', function(req, res) {
-#   var service_op  = req.body.service_op;
-#   var query       = req.body.query;
-#   request.get({
-#     url : rootUri + '/' + service_op,
-#     qs  : {
-#       $format : 'json',
-#       Query   : "'" + query + "'", // the single quotes are required!
-#     }
-#   }, function(err, response, body) {
-#     if (err)
-#       return res.send(500, err.message);
-#     if (response.statusCode !== 200)
-#       return res.send(500, response.body);
-#     var results = JSON.parse(response.body);
-#     res.send(results.d.results);
-#   });
-# });
+baseUrl = 'https://www.googleapis.com/customsearch/v1?'
 
+#https://www.googleapis.com/customsearch/v1?q=pineapple&cx=017716653312651474242%3Af1wy4gpl-78&num=2&safe=medium&searchType=image&key=AIzaSyAwNFSNnkwld4r-GF3yYcaH0DBkpbck6sw
 exports.findImage = (keyword) ->
+	deferred = Q.defer()
+
+	console.log("In here yo!")
+	#&imgType=#{imgType}&
+	url = "#{baseUrl}q=#{keyword}&cx=#{cx}&key=#{key}&num=#{num}&safe=#{safe}&searchType=#{searchType}&rights=cc_publicdomain+cc_noncommercial"
+	https.get url, (stream) ->
+		console.log(url)
+		buffer = ""
+		stream.on 'data', (packet) ->
+			buffer += packet
+		stream.on 'end', () ->
+			data = JSON.parse(buffer)
+			console.log(buffer)
+			if (data? && data.items? && data.items.length > 0)
+				console.log "GOOD"
+				imageLink = data.items[0].link
+				deferred.resolve(imageLink)
+			else
+				console.log "BAD"
+				deferred.reject()
+
+	return deferred.promise

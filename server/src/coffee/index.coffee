@@ -1,7 +1,7 @@
 express = require 'express'
 db = require './db'
 gen = require './question_gen'
-http = require 'http'
+imagesearch = require './imagesearch'
 
 app = express()
 
@@ -21,11 +21,11 @@ app.get '/questions/get/difficult', (req, res) ->
   )
 
 app.get '/questions/generate/random', (req, res) ->
-	count = req.query.count
-	gen.generateRandomQuestionSet(count).then (data) ->
-		console.log data
-		res.status(200)
-		res.send(data)
+  count = req.query.count
+  gen.generateRandomQuestionSet(count).then (data) ->
+    console.log data
+    res.status(200)
+    res.send(data)
 
 app.get '/questions/generate', (req, res) ->
   type = req.query.type
@@ -35,7 +35,10 @@ app.get '/questions/generate', (req, res) ->
     res.status(200)
     res.send(data)
 
-app.get '/test', (req, res) ->
-  db.getNextQuestionId().then (id) ->
+app.get '/image', (req, res) ->
+  keyword = req.query.keyword
+  imagesearch.findImage(keyword).then (data) ->
+    res.status(200)
+    res.send(data)
 
 app.listen 3000

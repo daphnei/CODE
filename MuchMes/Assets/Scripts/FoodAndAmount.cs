@@ -14,7 +14,8 @@ public class FoodAndAmount
 
 	public static FoodAndAmount FromJSON(JSONNode node) {
 		return new FoodAndAmount {
-			name = node["name"].Value, genre = node["genre"].Value,
+			name = node["name"].Value, 
+			genre = node["genre"].Value,
 			amount = node["amount"].AsInt
 		};
 	}
