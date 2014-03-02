@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using System;
@@ -17,6 +17,7 @@ public class QuizController : MonoBehaviour {
 
 	List<Question> questions = new List<Question>();
     int questionNumber = 1;
+
 
 	void Awake() {
 		this.header = GameObject.Find("GameGUIHeader").GetComponent<GameGUIText>();

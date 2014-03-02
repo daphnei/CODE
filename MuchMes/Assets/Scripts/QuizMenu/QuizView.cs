@@ -15,7 +15,7 @@ public class QuizView : MonoBehaviour {
 	public Action transitionAction = null;
 	float transitionTimer = 0f;
 
-    protected bool beingHidden = true;
+	protected bool clicked = false;
 
 	// Use this for initialization
 	protected virtual void Awake () {
@@ -68,8 +68,9 @@ public class QuizView : MonoBehaviour {
 	public virtual void Fill(Question question) {
 		optionAText.SetTextPure(FormatFood(question.foodA));
 		optionBText.SetTextPure(FormatFood(question.foodB));
-		optionAImg.UpdatePicture("ASD");
-		optionBImg.UpdatePicture("ASD");
+		optionAImg.UpdatePicture(question.foodA.image);
+		optionBImg.UpdatePicture(question.foodB.image);
+		clicked = false;
 	}
 		
 	private string FormatFood(FoodAndAmount f)
@@ -81,13 +82,11 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public void Show() {
-        beingHidden = false;
         SetAnimationsRecursive(true, this.gameObject);
         ShowNoAnimate();
 	}
 
 	public void Hide(Action onComplete) {
-        beingHidden = true;
 		transitionTimer = 0;
 
 		SetAnimationsRecursive(false, this.gameObject);
@@ -100,13 +99,11 @@ public class QuizView : MonoBehaviour {
 
     public void HideNoAnimate()
     {
-        beingHidden = true;
         Helpers.SetRenderer(this.gameObject, false);
     }
 
     public void ShowNoAnimate()
     {
-        beingHidden = false;
         Helpers.SetRenderer(this.gameObject, true);
     }
 
