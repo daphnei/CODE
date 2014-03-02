@@ -55,6 +55,7 @@ public class QuizController : MonoBehaviour {
 		private void SetCatState(string newState) {
 				catStates [this.currentCatState].SetActive (false);
 				catStates [newState].SetActive (true);
+				this.currentCatState = newState;
 		}
 	
 	// Use this for initialization
@@ -79,15 +80,15 @@ public class QuizController : MonoBehaviour {
         questionNumber++;
 		header.SetTextPure("Q." + questionNumber);
         NextQuestion();
-		
+				Debug.Log ("Answered question with correctness: " + correctness);
 				this.IncrementScore ((int)(correctness * 20));
-				if (correctness == 1) {
+				if (Mathf.Approximately(correctness, 1)) {
 						if (currentCatState == "Neutral") {
 								this.SetCatState ("Happy");
 						} else if (currentCatState == "Sad") {
 								this.SetCatState("Neutral");
 						}
-				} else if (correctness == 0) {
+				} else if (Mathf.Approximately(correctness, 0)) {
 						if (currentCatState == "Neutral") {
 								this.SetCatState ("Sad");
 						} else if (currentCatState == "Happy") {
