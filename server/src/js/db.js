@@ -3,6 +3,7 @@
   var Q, connection, mysql;
 
   mysql = require('mysql');
+
   Q = require('q');
 
   connection = mysql.createConnection({

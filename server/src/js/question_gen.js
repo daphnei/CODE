@@ -6,7 +6,7 @@
 
   db = require('./db');
 
-  Q = require('Q');
+  Q = require('q');
 
   _ = require('underscore');
 
