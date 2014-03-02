@@ -41,7 +41,7 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public virtual void DetectClick(String name, int value) {
-		this.controller.NextQuestion();
+        this.controller.AnswerQuestion(1f);
 	}
 
 	public virtual void Fill(Question question) {

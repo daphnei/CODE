@@ -37,9 +37,17 @@ public class CompareQuizView : QuizView {
 	{
 		CompareQuestion compQuestions = question as CompareQuestion;
 		questionText.SetText("Which has more " + compQuestions.valueBeingCompared + "?");
-        optionAText.SetTextPure(compQuestions.foodA.NameItem + "\n<size=30>" + compQuestions.foodA.NameDetails + "</size>");
-		optionBText.SetTextPure(compQuestions.foodB.NameItem + "\n<size=30>" + compQuestions.foodB.NameDetails + "</size>");
+        optionAText.SetTextPure(FormatFood(compQuestions.foodA));
+        optionBText.SetTextPure(FormatFood(compQuestions.foodB));
 	}
+
+    private string FormatFood(FoodAndAmount f)
+    {
+        int capName = 16;
+        int capDes = 28;
+        int capGenre = 16;
+        return "<size=35>" + f.genre.Cap(capGenre) + "</size>\n" + f.NameItem.Cap(capName) + "\n<size=35>" + f.NameDetails.Cap(capDes) + "</size>";
+    }
 
 	 public override void DetectClick(string name, int value)
 	{
