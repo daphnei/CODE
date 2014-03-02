@@ -34,8 +34,8 @@ public class FoodAndAmount
 		return new FoodAndAmount {
 			name = node["name"].Value, 
 			genre = node["genre"].Value,
-			amount = node["amount"].AsInt,
-            image = node["image"].Value
+            image = node["image"].Value,
+			amount = node["value"].AsInt
 		};
 	}
 }
