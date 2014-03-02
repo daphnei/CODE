@@ -6,9 +6,15 @@ using System.Text;
 using System;
 using SimpleJSON;
 
-public abstract class Question
+public class Question
 {
-	public abstract void SetPropertiesFromJSON(JSONNode node);
+	public FoodAndAmount foodA;
+	public FoodAndAmount foodB;
+
+	public virtual void SetPropertiesFromJSON(JSONNode node) {
+		foodA = FoodAndAmount.FromJSON(node["food1"]);
+		foodB = FoodAndAmount.FromJSON(node["food2"]);
+	}
 
 	public static Question FromJSON(JSONNode node) {
 		Question result;
@@ -37,9 +43,12 @@ public class CompositionQuestion : Question {
 	public string unit;
 
 	public override void SetPropertiesFromJSON(JSONNode node) {
+		base.SetPropertiesFromJSON (node);
+
+		baseFood = this.foodA;
+		composedFood = this.foodB;
+
 		valueBeingCompared = node["parameter"].Value;
-		baseFood = FoodAndAmount.FromJSON(node["food1"]);
-		composedFood = FoodAndAmount.FromJSON(node["food2"]);
 		actualValue = baseFood.amount / composedFood.amount;
 		unit = node ["unit"].Value;
 	}
@@ -48,12 +57,10 @@ public class CompositionQuestion : Question {
 
 public class CompareQuestion : Question {
 	public string valueBeingCompared;
-	public FoodAndAmount foodA;
-	public FoodAndAmount foodB;
 	
 	public override void SetPropertiesFromJSON(JSONNode node) {
+		base.SetPropertiesFromJSON (node);
+
 		valueBeingCompared = node["parameter"].Value;
-		foodA = FoodAndAmount.FromJSON(node["food1"]);
-		foodB = FoodAndAmount.FromJSON(node["food2"]);
 	}
 }

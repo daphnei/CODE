@@ -15,13 +15,13 @@ public class CompositionQuizView : QuizView {
 		foreach (GameGUIText guiText in this.transform.GetComponentsInChildren<GameGUIText>()) {
 			switch(guiText.gameObject.name)
 			{
-			case "OptionA":
+			case "ChoiceA":
 				choiceA = guiText;
 				break;
-			case "OptionB":
+			case "ChoiceB":
 				choiceB = guiText;
 				break;
-			case "OptionC":
+			case "ChoiceC":
 				choiceC = guiText;
 				break;
 			}
@@ -42,6 +42,8 @@ public class CompositionQuizView : QuizView {
 		choiceA.SetText (values[0].ToString("#.#") + " " + compQuestions.unit);
 		choiceB.SetText (values[1].ToString("#.#") + " " + compQuestions.unit);
 		choiceC.SetText (values[2].ToString("#.#") + " " + compQuestions.unit);
+
+		base.Fill (question);
 	}
 
     public override void DetectClick(GameGUIText text)
