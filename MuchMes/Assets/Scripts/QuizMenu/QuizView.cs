@@ -11,8 +11,9 @@ public class QuizView : MonoBehaviour {
 
 	public float transitionTime = 0.5f;
 	public Action transitionAction = null;
-
 	float transitionTimer = 0f;
+
+    protected bool beingHidden = true;
 
 	// Use this for initialization
 	protected virtual void Awake () {
@@ -54,8 +55,8 @@ public class QuizView : MonoBehaviour {
 		}
 	}
 
-	public virtual void DetectClick(String name, int value) {
-        this.controller.AnswerQuestion(1f);
+	public virtual void DetectClick(GameGUIText text) {
+
 	}
 
 	public virtual void Fill(Question question) {
@@ -63,11 +64,13 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public void Show() {
-        ShowNoAnimate();
+        beingHidden = false;
         SetAnimationsRecursive(true, this.gameObject);
+        ShowNoAnimate();
 	}
 
 	public void Hide(Action onComplete) {
+        beingHidden = true;
 		transitionTimer = 0;
 
 		SetAnimationsRecursive(false, this.gameObject);
@@ -80,11 +83,13 @@ public class QuizView : MonoBehaviour {
 
     public void HideNoAnimate()
     {
+        beingHidden = true;
         Helpers.SetRenderer(this.gameObject, false);
     }
 
     public void ShowNoAnimate()
     {
+        beingHidden = false;
         Helpers.SetRenderer(this.gameObject, true);
     }
 

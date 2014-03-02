@@ -43,4 +43,9 @@ public class CompositionQuizView : QuizView {
 		choiceB.SetText (values[1].ToString("#.#") + " " + compQuestions.unit);
 		choiceC.SetText (values[2].ToString("#.#") + " " + compQuestions.unit);
 	}
+
+    public override void DetectClick(GameGUIText text)
+    {
+        this.controller.AnswerQuestion(1f);
+    }
 }
