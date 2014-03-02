@@ -61,16 +61,26 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public virtual void DetectClick(String name, int value) {
-		this.controller.NextQuestion();
+        this.controller.AnswerQuestion(1f);
 	}
 
 	public virtual void Fill(Question question) {
-		optionAText.SetTextPure(question.foodA.NameItem + "\n<size=30>" + question.foodA.NameDetails + "</size>");
-		optionBText.SetTextPure(question.foodB.NameItem + "\n<size=30>" + question.foodB.NameDetails + "</size>");
+		optionAText.SetTextPure(FormatFood(question.foodA));
+		optionBText.SetTextPure(FormatFood(question.foodB));
+		optionAImg.UpdatePicture("ASD");
+		optionBImg.UpdatePicture("ASD");
+	}
+		
+	private string FormatFood(FoodAndAmount f)
+	{
+		int capName = 16;
+		int capDes = 28;
+		int capGenre = 16;
+		return "<size=35>" + f.genre.Cap(capGenre) + "</size>\n" + f.NameItem.Cap(capName) + "\n<size=35>" + f.NameDetails.Cap(capDes) + "</size>";
 	}
 
 	public void Show() {
-        this.gameObject.SetActive(true);
+        ShowNoAnimate();
         SetAnimationsRecursive(true, this.gameObject);
 	}
 
@@ -80,10 +90,20 @@ public class QuizView : MonoBehaviour {
 		SetAnimationsRecursive(false, this.gameObject);
 
 		transitionAction = delegate() {
-			this.gameObject.SetActive(false);
+            HideNoAnimate();
 			onComplete();
 		};
 	}
+
+    public void HideNoAnimate()
+    {
+        Helpers.SetRenderer(this.gameObject, false);
+    }
+
+    public void ShowNoAnimate()
+    {
+        Helpers.SetRenderer(this.gameObject, true);
+    }
 
 	public void SetAnimationsRecursive(bool visibility, GameObject startObj)
 	{

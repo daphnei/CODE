@@ -19,13 +19,15 @@ public class CompareQuizView : QuizView {
 	public override void Fill(Question question)
 	{
 		CompareQuestion compQuestions = question as CompareQuestion;
-		questionText.SetText("Which has more " + compQuestions.valueBeingCompared + "?");
+		questionText.SetText("Which has more " + compQuestions.valueBeingCompared.Replace('_', ' ') + "?");
 
 		base.Fill (question);
 	}
 
-	 public override void DetectClick(string name, int value)
+
+	public override void DetectClick(string name, int value)
 	{
 		base.DetectClick(name, value);
 	}
 }
+

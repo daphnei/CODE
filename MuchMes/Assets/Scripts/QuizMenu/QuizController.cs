@@ -39,8 +39,8 @@ public class QuizController : MonoBehaviour {
 	
 	// Use this for initialization
 	void Start () {
-		foreach (QuizView view in quizViews)
-			view.gameObject.SetActive(false);
+        foreach (QuizView view in quizViews)
+            view.HideNoAnimate();
 
 		this.questions = RequestServer.GetQuestions();
 		NextQuestion();
@@ -53,7 +53,7 @@ public class QuizController : MonoBehaviour {
 
     public void AnswerQuestion(float correctness) {
         questionNumber++;
-        header.SetText("Question " + questionNumber);
+        header.SetTextPure("Question " + questionNumber);
         NextQuestion();
     }
 

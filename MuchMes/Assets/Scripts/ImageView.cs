@@ -6,16 +6,29 @@ public class ImageView : MonoBehaviour {
 
 	public float unitSize = 2;
 	Texture2D loadedTexture;
+    SpriteRenderer sprRenderer;
+
+    Sprite defaultSprite = null;
+
+    void Awake()
+    {
+        sprRenderer = this.GetComponent<SpriteRenderer>();
+        defaultSprite = sprRenderer.sprite;
+    }
 
 	void Start () {
 		loadedTexture = new Texture2D(4, 4, TextureFormat.DXT1, false);
-		StartCoroutine(WaitForRequest());
 	}
+
+    public void UpdatePicture(string url)
+    {
+        sprRenderer.sprite = defaultSprite;
+        StartCoroutine(WaitForRequest(url));
+    }
 	
-	IEnumerator WaitForRequest()
+	IEnumerator WaitForRequest(String url)
 	{
-		//string url = RequestServer.GetSearchImageURL("cat");
-        string url = "http://www.adam.lifemakesuslaugh.com/images/me.png";
+        url = "http://www.adam.lifemakesuslaugh.com/images/me.png";
 		WWW www = new WWW(url);
 
 		yield return www;
@@ -36,7 +49,7 @@ public class ImageView : MonoBehaviour {
 				y = (loadedTexture.height - height) / 2;
 
 			float pixelsToUnit = (width / unitSize);
-			this.GetComponent<SpriteRenderer>().sprite = Sprite.Create(loadedTexture, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f), pixelsToUnit);
+			sprRenderer.sprite = Sprite.Create(loadedTexture, new Rect(x, y, width, height), new Vector2(0.5f, 0.5f), pixelsToUnit);
 		} else {
 			Debug.Log("WWW Error: "+ www.error);
 		}    

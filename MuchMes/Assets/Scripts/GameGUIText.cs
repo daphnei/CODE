@@ -37,8 +37,8 @@ public class GameGUIText : MonoBehaviour {
 	public void SetText(string text) {
 		this.textMesh.text = textSize.SplitText(text, textMaxWidth);
 	}
-    public void SetTextPure(string text)
-    {
+
+    public void SetTextPure(string text) {
         this.textMesh.text = text;
     }
 }

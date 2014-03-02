@@ -11,6 +11,7 @@ public class FoodAndAmount
 	public string name;
 	public string genre;
 	public float amount;
+    public string image;
 
     public string NameItem {
         get {
@@ -33,6 +34,7 @@ public class FoodAndAmount
 		return new FoodAndAmount {
 			name = node["name"].Value, 
 			genre = node["genre"].Value,
+            image = node["image"].Value,
 			amount = node["value"].AsInt
 		};
 	}
