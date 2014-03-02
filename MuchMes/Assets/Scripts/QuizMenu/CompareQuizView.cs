@@ -36,9 +36,11 @@ public class CompareQuizView : QuizView {
 	public override void Fill(Question question)
 	{
 		CompareQuestion compQuestions = question as CompareQuestion;
-		questionText.SetText("Which has more " + compQuestions.valueBeingCompared + "?");
+		questionText.SetText("Which has more " + compQuestions.valueBeingCompared.Replace('_', ' ') + "?");
         optionAText.SetTextPure(FormatFood(compQuestions.foodA));
         optionBText.SetTextPure(FormatFood(compQuestions.foodB));
+        optionAImg.UpdatePicture("ASD");
+        optionBImg.UpdatePicture("ASD");
 	}
 
     private string FormatFood(FoodAndAmount f)
@@ -49,8 +51,9 @@ public class CompareQuizView : QuizView {
         return "<size=35>" + f.genre.Cap(capGenre) + "</size>\n" + f.NameItem.Cap(capName) + "\n<size=35>" + f.NameDetails.Cap(capDes) + "</size>";
     }
 
-	 public override void DetectClick(string name, int value)
+	public override void DetectClick(string name, int value)
 	{
 		base.DetectClick(name, value);
 	}
 }
+

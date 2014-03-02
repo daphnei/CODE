@@ -16,7 +16,7 @@ public class FlyIn : MonoBehaviour {
 	float sign = 1;
 
 	// Use this for initialization
-	void Start () {
+	void Awake () {
 		this.startPosition = this.transform.localPosition;
 		this.startRotate = this.transform.localRotation.eulerAngles;
 

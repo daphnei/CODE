@@ -86,7 +86,7 @@ public class TextSize {
 	}
 
 	public string SplitText(string s, float maxWidth) {
-        string[] words = Regex.Split(s, " \n\r");
+        string[] words = Regex.Split(s, " ");
         string compiled = "";
         float spaceWidth = GetTextWidth(" ");
 

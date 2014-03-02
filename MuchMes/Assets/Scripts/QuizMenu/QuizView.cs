@@ -49,7 +49,7 @@ public class QuizView : MonoBehaviour {
 	}
 
 	public void Show() {
-        this.gameObject.SetActive(true);
+        ShowNoAnimate();
         SetAnimationsRecursive(true, this.gameObject);
 	}
 
@@ -59,10 +59,20 @@ public class QuizView : MonoBehaviour {
 		SetAnimationsRecursive(false, this.gameObject);
 
 		transitionAction = delegate() {
-			this.gameObject.SetActive(false);
+            HideNoAnimate();
 			onComplete();
 		};
 	}
+
+    public void HideNoAnimate()
+    {
+        Helpers.SetRenderer(this.gameObject, false);
+    }
+
+    public void ShowNoAnimate()
+    {
+        Helpers.SetRenderer(this.gameObject, true);
+    }
 
 	public void SetAnimationsRecursive(bool visibility, GameObject startObj)
 	{
