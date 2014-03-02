@@ -1,4 +1,4 @@
-USE sql330935;
+USE sql331606;
 
 DROP TABLE IF EXISTS units;
 DROP TABLE IF EXISTS fast_foods;
@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS dairy;
 DROP TABLE IF EXISTS all_foods;
 
 DROP TABLE IF EXISTS composition_questions;
+DROP TABLE IF EXISTS compare_questions;
 DROP TABLE IF EXISTS questions;
 
 CREATE TABLE units (
@@ -448,20 +449,27 @@ CREATE TABLE nuts_legumes (
 );
 
 CREATE TABLE `questions` (
-  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `qID` mediumint(9) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
-  `average_score` float DEFAULT '0',
-  `num_answers` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `total_score` int DEFAULT 0,
+  `num_responses` int DEFAULT 0,
+  PRIMARY KEY (`qID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
-CREATE TABLE `composition_questions` (
-  `qid` mediumint(9) DEFAULT NULL,
-  `base_food` varchar(100) DEFAULT NULL,
-  `composed_food` varchar(100) DEFAULT NULL,
-  `amount_of_composed` float DEFAULT NULL,
-  KEY `qid` (`qid`),
-  CONSTRAINT `composition_questions_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `questions` (`id`)
+CREATE TABLE composition_questions (
+  qID mediumint(9) DEFAULT NULL,
+  food1 int,
+  food2 int,
+  KEY qID (qID),
+  CONSTRAINT `composition_questions_ibfk_1` FOREIGN KEY (`qID`) REFERENCES `questions` (`qID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE compare_questions (
+  qID mediumint(9) DEFAULT NULL,
+  food1 int,
+  food2 int,
+  KEY qID (qID),
+  CONSTRAINT `compare_questions_ibfk_1` FOREIGN KEY (`qID`) REFERENCES `questions` (`qID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 load data local infile 'meat_poultry_cleaned.csv' into table meats_poultry fields terminated by ',' enclosed by '"' lines terminated by '\n';
