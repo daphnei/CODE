@@ -39,6 +39,8 @@ app.get '/image', (req, res) ->
 	keyword = req.query.keyword
 	console.log("GOT THIS FAR: " + keyword)
 	imagesearch.findImage(keyword).then (data) ->
+		console.log("HEEERE")
+		console.log(data)
 		res.status(200)
 		res.send(data)
 

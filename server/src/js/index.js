@@ -57,6 +57,8 @@
     keyword = req.query.keyword;
     console.log("GOT THIS FAR: " + keyword);
     return imagesearch.findImage(keyword).then(function(data) {
+      console.log("HEEERE");
+      console.log(data);
       res.status(200);
       return res.send(data);
     });
