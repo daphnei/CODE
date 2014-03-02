@@ -1,4 +1,4 @@
-USE sql330935;
+USE sql331606;
 
 DROP TABLE IF EXISTS units;
 DROP TABLE IF EXISTS fast_foods;
@@ -13,10 +13,13 @@ DROP TABLE IF EXISTS sweets_candies;
 DROP TABLE IF EXISTS fats_and_oils;
 DROP TABLE IF EXISTS sweets_sugars;
 DROP TABLE IF EXISTS fruits;
+DROP TABLE IF EXISTS nuts_legumes;
+DROP TABLE IF EXISTS dairy;
 
 DROP TABLE IF EXISTS all_foods;
 
 DROP TABLE IF EXISTS composition_questions;
+DROP TABLE IF EXISTS compare_questions;
 DROP TABLE IF EXISTS questions;
 
 CREATE TABLE units (
@@ -389,21 +392,84 @@ CREATE TABLE fruits (
 	Cholesterol FLOAT
 );
 
+CREATE TABLE dairy (
+	Name VARCHAR(100),
+	Measure FLOAT,
+	Unit VARCHAR(100),
+	Genre VARCHAR(100),
+	Weight FLOAT,
+	Energy FLOAT,
+	Energy2 FLOAT,
+	Protein FLOAT,
+	Carbohydrate FLOAT,
+	Total_Sugar FLOAT,
+	Total_Fat FLOAT,
+	Saturated_Fat FLOAT,
+	Cholesterol FLOAT,
+	Calcium FLOAT,
+	Iron FLOAT,
+	Sodium FLOAT,
+	Potassium FLOAT,
+	Magnesium FLOAT,
+	Phosphorus FLOAT,
+	Vitamin_A FLOAT,
+	Vitamin_D FLOAT,
+	Folate FLOAT,
+	Vitamin_B12 FLOAT,
+	Riboflavin FLOAT
+);
+
+CREATE TABLE nuts_legumes (
+	Name VARCHAR(100),
+	Measure FLOAT,
+	Unit VARCHAR(100),
+	Genre VARCHAR(100),
+	Weight FLOAT,
+	Energy FLOAT,
+	Energy2 FLOAT,
+	Protein FLOAT,
+	Carbohydrate FLOAT,
+	Total_Sugar FLOAT,
+	Total_Daietary_Fibre FLOAT,
+	Total_Fat FLOAT,
+	Saturated_Fat FLOAT,
+	Monounsaturated_Fat FLOAT,
+	Polyunsaturated_Fat FLOAT,
+	Calcium FLOAT,
+	Iron FLOAT,
+	Sodium FLOAT,
+	Potassium FLOAT,
+	Magnesium FLOAT,
+	Phosphorus FLOAT,
+	Folate FLOAT,
+	Vitamin_B12 FLOAT,
+	Vitamin_E FLOAT,
+	Cholesterol FLOAT,
+	Vitamin_A FLOAT
+);
+
 CREATE TABLE `questions` (
-  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `qID` mediumint(9) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
-  `average_score` float DEFAULT '0',
-  `num_answers` int(11) DEFAULT '0',
-  PRIMARY KEY (`id`)
+  `total_score` int DEFAULT 0,
+  `num_responses` int DEFAULT 0,
+  PRIMARY KEY (`qID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
-CREATE TABLE `composition_questions` (
-  `qid` mediumint(9) DEFAULT NULL,
-  `base_food` varchar(100) DEFAULT NULL,
-  `composed_food` varchar(100) DEFAULT NULL,
-  `amount_of_composed` float DEFAULT NULL,
-  KEY `qid` (`qid`),
-  CONSTRAINT `composition_questions_ibfk_1` FOREIGN KEY (`qid`) REFERENCES `questions` (`id`)
+CREATE TABLE composition_questions (
+  qID mediumint(9) DEFAULT NULL,
+  food1 int,
+  food2 int,
+  KEY qID (qID),
+  CONSTRAINT `composition_questions_ibfk_1` FOREIGN KEY (`qID`) REFERENCES `questions` (`qID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+CREATE TABLE compare_questions (
+  qID mediumint(9) DEFAULT NULL,
+  food1 int,
+  food2 int,
+  KEY qID (qID),
+  CONSTRAINT `compare_questions_ibfk_1` FOREIGN KEY (`qID`) REFERENCES `questions` (`qID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 load data local infile 'meat_poultry_cleaned.csv' into table meats_poultry fields terminated by ',' enclosed by '"' lines terminated by '\n';
@@ -417,6 +483,8 @@ load data local infile 'fast_foods_cleaned.csv' into table fast_foods fields ter
 load data local infile 'baked_goods_cleaned.csv' into table baked_goods fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'egg_dishes_cleaned.csv' into table egg_dishes fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'fruits_cleaned.csv' into table fruits fields terminated by ',' enclosed by '"' lines terminated by '\n';
+load data local infile 'nuts_legumes_cleaned.csv' into table nuts_legumes fields terminated by ',' enclosed by '"' lines terminated by '\n';
+load data local infile 'dairy_cleaned.csv' into table dairy fields terminated by ',' enclosed by '"' lines terminated by '\n';
 
 
 CREATE TABLE all_foods (
@@ -432,29 +500,34 @@ CREATE TABLE all_foods (
 	Cholesterol FLOAT,
 	Vitamin_A FLOAT,
 	Calcium FLOAT,
+	Iron FLOAT,
 	PRIMARY KEY (id),
 	id MEDIUMINT NOT NULL AUTO_INCREMENT
 	) 
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from meats_poultry
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from meats_poultry
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from miscellaneous_foods
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from miscellaneous_foods
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from snacks
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from snacks
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from vegetables
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from vegetables
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from mixed_dishes
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from mixed_dishes
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from sweets_candies
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from sweets_candies
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from fats_and_oils
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from fats_and_oils
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from fast_foods
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from fast_foods
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from baked_goods
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from baked_goods
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from egg_dishes
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from egg_dishes
 	union
-	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from fruits
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from fruits
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from nuts_legumes
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium, Iron from dairy
 ;
 
