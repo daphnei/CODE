@@ -37,6 +37,9 @@ public class CompareQuizView : QuizView {
 		currentQuestion = compQuestions;
 		questionText.SetText("Which has more " + compQuestions.valueBeingCompared.Replace('_', ' ') + "?");
 
+		buttonAText.renderer.material.color = buttonAText.startColor;
+		buttonBText.renderer.material.color = buttonBText.startColor;
+
 		base.Fill (question);
 	}
 
