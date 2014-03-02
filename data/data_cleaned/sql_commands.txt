@@ -12,6 +12,7 @@ DROP TABLE IF EXISTS miscellaneous_foods;
 DROP TABLE IF EXISTS sweets_candies;
 DROP TABLE IF EXISTS fats_and_oils;
 DROP TABLE IF EXISTS sweets_sugars;
+DROP TABLE IF EXISTS fruits;
 
 DROP TABLE IF EXISTS all_foods;
 
@@ -360,6 +361,34 @@ Alcohol FLOAT,
 Total_Daietary_Fibre FLOAT
 );
 
+CREATE TABLE fruits (
+	Name VARCHAR(100),
+	Measure FLOAT,
+	Unit VARCHAR(100),
+	Genre VARCHAR(100),
+	Weight FLOAT,
+	Energy FLOAT,
+	Energy2 FLOAT,
+	Protein FLOAT,
+	Carbohydrate FLOAT,
+	Total_Sugar FLOAT,
+	Total_Dietary_Fibre FLOAT,
+	Total_Fat FLOAT,
+	Calcium FLOAT,
+	Iron FLOAT,
+	Sodium FLOAT,
+	Potassium FLOAT,
+	Magnesium FLOAT,
+	Phosphorus FLOAT,
+	Vitamin_A FLOAT,
+	Beta_carotene FLOAT,
+	Lycopene FLOAT,
+	Folate FLOAT,
+	Vitamin_C FLOAT,
+	Vitamin_B12 FLOAT,
+	Cholesterol FLOAT
+);
+
 CREATE TABLE `questions` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
   `type` varchar(20) NOT NULL,
@@ -387,6 +416,8 @@ load data local infile 'fats_and_oils_cleaned.csv' into table fats_and_oils fiel
 load data local infile 'fast_foods_cleaned.csv' into table fast_foods fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'baked_goods_cleaned.csv' into table baked_goods fields terminated by ',' enclosed by '"' lines terminated by '\n';
 load data local infile 'egg_dishes_cleaned.csv' into table egg_dishes fields terminated by ',' enclosed by '"' lines terminated by '\n';
+load data local infile 'fruits_cleaned.csv' into table fruits fields terminated by ',' enclosed by '"' lines terminated by '\n';
+
 
 CREATE TABLE all_foods (
 	Name VARCHAR(100),
@@ -423,5 +454,7 @@ CREATE TABLE all_foods (
 	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from baked_goods
 	union
 	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from egg_dishes
+	union
+	select Name, Genre, Measure, Unit, Energy, Energy2, Protein, Carbohydrate, Total_Sugar, Cholesterol, Vitamin_A, Calcium from fruits
 ;
 
