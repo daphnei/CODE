@@ -17,9 +17,11 @@ public class SnapToGrid : MonoBehaviour {
 		if (Application.isPlaying || this.transform.parent == null)
 			return;
 
-		Vector3 localTopLeft = Vector3.zero;
-		localTopLeft.x = this.renderer.bounds.min.x - this.transform.parent.position.x;
-		localTopLeft.y = this.renderer.bounds.max.y - this.transform.parent.position.y;
+		Vector3 localTopLeft = this.transform.localPosition;
+		if (this.renderer != null) {
+			localTopLeft.x = this.renderer.bounds.min.x - this.transform.parent.position.x;
+			localTopLeft.y = this.renderer.bounds.max.y - this.transform.parent.position.y;
+		}
 
 		Vector3 localTopLeftSnap = Vector3.zero;
 		localTopLeftSnap.x = Mathf.Round(localTopLeft.x / snapDistance) * snapDistance;
