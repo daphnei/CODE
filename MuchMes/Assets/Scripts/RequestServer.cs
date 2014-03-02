@@ -34,7 +34,7 @@ public static class RequestServer {
 	}
 
 	public static List<Question> GetQuestions() {
-		JSONNode json = Request("questions/generate/random?count=3");
+		JSONNode json = Request("questions/cached?count=20");
 		List<Question> questions = new List<Question>();
 		foreach (JSONNode node in json.AsArray) {
 			questions.Add(Question.FromJSON(node));

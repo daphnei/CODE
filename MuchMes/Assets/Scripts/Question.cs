@@ -45,11 +45,11 @@ public class CompositionQuestion : Question {
 	public override void SetPropertiesFromJSON(JSONNode node) {
 		base.SetPropertiesFromJSON (node);
 
-		baseFood = this.foodA;
-		composedFood = this.foodB;
+		baseFood = this.foodB;
+		composedFood = this.foodA;
 
 		valueBeingCompared = node["parameter"].Value;
-		actualValue = baseFood.amount / composedFood.amount;
+		actualValue = composedFood.amount / baseFood.amount;
 		unit = node ["unit"].Value;
 	}
 }
