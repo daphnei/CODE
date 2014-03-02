@@ -2,6 +2,11 @@
 using System.Collections;
 
 public class CompareQuizView : QuizView {
+	
+    protected GameGUIText buttonAText;
+    protected GameGUIText buttonBText;
+
+    private CompareQuestion currentQuestion;
 
 
 	protected override void Awake()
@@ -13,7 +18,6 @@ public class CompareQuizView : QuizView {
 			{
 			}
 		}
-
 	}
 
 	public override void Fill(Question question)
@@ -25,9 +29,21 @@ public class CompareQuizView : QuizView {
 	}
 
 
-	public override void DetectClick(string name, int value)
+	public override void DetectClick(GameGUIText text)
 	{
-		base.DetectClick(name, value);
+        if (beingHidden)
+            return;
+
+        text.renderer.material.color = Color.red;
+
+        bool winnerIsA = currentQuestion.foodA.amount > currentQuestion.foodB.amount;
+        bool choosenA = text.name == "ButtonA";
+
+        GameGUIText winner = winnerIsA ? buttonAText : buttonBText;
+        winner.renderer.material.color = Color.green;
+            
+        float result = winnerIsA == choosenA ? 1f : 0f;
+        this.controller.AnswerQuestion(result);
 	}
 }
 

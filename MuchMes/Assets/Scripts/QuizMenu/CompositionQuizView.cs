@@ -45,4 +45,9 @@ public class CompositionQuizView : QuizView {
 
 		base.Fill (question);
 	}
+
+    public override void DetectClick(GameGUIText text)
+    {
+        this.controller.AnswerQuestion(1f);
+    }
 }

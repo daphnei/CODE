@@ -5,8 +5,9 @@ using System.Collections;
 public class GameGUIText : MonoBehaviour {
 
 	private TextMesh textMesh;
-	TextSize textSize;
+	private TextSize textSize;
 
+    public Color startColor { get; set; }
 	public FlyIn flyInAnimation { get; set; }
 	public Action<GameGUIText> onClick;
 
@@ -20,6 +21,7 @@ public class GameGUIText : MonoBehaviour {
 		this.textMesh = this.GetComponentInChildren<TextMesh>();
 		this.textSize = new TextSize(textMesh);
 		this.flyInAnimation = this.GetComponent<FlyIn>();
+        this.startColor = this.renderer ? this.renderer.material.color : Color.white;
 	}
 
 	// Update is called once per frame
@@ -31,7 +33,7 @@ public class GameGUIText : MonoBehaviour {
 		if (onClick != null)
 			onClick(this);
 		if (view != null)
-			view.DetectClick(guiName, value);
+			view.DetectClick(this);
 	}
 
 	public void SetText(string text) {
