@@ -6,18 +6,25 @@ comparision_question = "compare"
 
 fields = ["Energy", "Protein", "Carbohydrate", "Total_Sugar", "Cholesterol", "Vitamin_A", "Calcium"]
 units =  ["kcal",   "g",       "g",            "g",           "mg",          "RAE",        "mg"]
+
+insertQuestion = (question) ->
+  db.connectAndQuery 'INSERT INTO questions (type) VALUES (?)', [question.question_type]
+  db.getNextQuestionId().then (id) ->
+    switch question.question_type
+      when 'composition'
+
 make_food = (name, genre, value, measure, unit) ->
   return {
-    name:name,
-    genre:genre,
-    value:value,
-    serving_measure:measure,
-    serving_unit:unit,
+    name: name,
+    genre: genre,
+    value: value,
+    serving_measure: measure,
+    serving_unit: unit,
   }
 
 exports.generateQuestions = (response, type, count, onComplete) ->
   console.log("Generating question of type: " + type)
-  
+
   queryString = null
 
   if (type == a_per_b_question)
@@ -31,7 +38,7 @@ exports.generateQuestions = (response, type, count, onComplete) ->
                   FROM all_foods t1, all_foods t2
                   WHERE t1.#{chosen_field} > 0 and t2.#{chosen_field} > 0 and t1.#{chosen_field} > 5 * t2.#{chosen_field}
                   ORDER BY RAND() LIMIT #{count};"
-  else if (type == comparision_question)  
+  else if (type == comparision_question)
     rand_index = parseInt(Math.random() * fields.length)
     chosen_field = fields[rand_index]
     unit_for_chosen = units[rand_index]
@@ -48,12 +55,13 @@ exports.generateQuestions = (response, type, count, onComplete) ->
       console.log(data)
       data_to_send = []
       for question in data
+        insertQuestion(question)
         element = {
           question_type:type,
           parameter:chosen_field,
-          unit:unit_for_chosen,
-          food1:make_food(question.Name1, question.Genre1, question.Value1, question.Measure1, question.Unit1),
-          food2:make_food(question.Name2, question.Genre2, question.Value2, question.Measure2, question.Unit2),
+          unit: unit_for_chosen,
+          food1: make_food(question.Name1, question.Genre1, question.Value1, question.Measure1, question.Unit1),
+          food2: make_food(question.Name2, question.Genre2, question.Value2, question.Measure2, question.Unit2),
         }
         data_to_send.push(element)
 
@@ -66,4 +74,4 @@ exports.generateRandomQuestionSet = (res, count = 10) ->
   for i in [0 .. count]
     console.log("fehkhiow")
 
-  
+

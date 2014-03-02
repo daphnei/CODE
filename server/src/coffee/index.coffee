@@ -30,6 +30,10 @@ app.get '/questions/generate', (req, res) ->
   gen.generateQuestions(res, type, count, (data) ->
     res.status(200)
     res.send(data)
-  )	
+  )
+
+app.get '/test', (req, res) ->
+  db.getNextQuestionId().then (id) ->
+
 
 app.listen 3000

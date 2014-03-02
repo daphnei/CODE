@@ -46,6 +46,10 @@
     });
   });
 
+  app.get('/test', function(req, res) {
+    return db.getNextQuestionId().then(function(id) {});
+  });
+
   app.listen(3000);
 
 }).call(this);

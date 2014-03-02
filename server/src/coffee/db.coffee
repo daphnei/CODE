@@ -17,10 +17,18 @@ exports.connectAndQuery = (query, queryArgs=[]) ->
 
 exports.getMostDifficultQuestions = (limit) ->
   queryString = "SELECT * FROM questions WHERE num_answers >= 5 ORDER BY average_score LIMIT ?"
-  return connectAndQuery queryString, [limit]
+  return exports.connectAndQuery queryString, [limit]
 
 exports.getQuestions = (type, limit) ->
   tableName = mysql.escapeId(type + '_questions')
   queryString = "SELECT * FROM questions INNER JOIN #{tableName} ON #{tableName}.qid = questions.id LIMIT ?"
 
-  return connectAndQuery queryString, [limit]
+  return exports.connectAndQuery queryString, [limit]
+
+getNextQuestionId = ->
+  nextId = Q.defer()
+
+  exports.connectAndQuery('SELECT COUNT(*) FROM questions').then (data) ->
+    nextId.resolve data['COUNT(*)']
+
+  nextId.promise
